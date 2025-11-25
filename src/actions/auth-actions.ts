@@ -1,9 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import connectDB from '@/lib/db';
-import User from '@/lib/models/User';
-import { comparePassword, setAuthCookie } from '@/lib/auth';
+import { setAuthCookie } from '@/lib/auth';
 
 export async function loginAction(prevState: any, formData: FormData) {
   const email = formData.get('email') as string;
@@ -14,27 +12,18 @@ export async function loginAction(prevState: any, formData: FormData) {
   }
 
   try {
-    await connectDB();
-    const user = await User.findOne({ email });
+    // TODO: Replace with your actual authentication logic
+    // For now, this is a simple hardcoded check
+    const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@example.com';
+    const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
-    if (!user) {
+    if (email !== ADMIN_EMAIL || password !== ADMIN_PASSWORD) {
       return { error: 'Invalid credentials.' };
-    }
-
-    const isMatch = await comparePassword(password, user.passwordHash);
-
-    if (!isMatch) {
-      return { error: 'Invalid credentials.' };
-    }
-
-    // Only allow admin login
-    if (user.role !== 'admin') {
-      return { error: 'Access denied. Admins only.' };
     }
 
     // Generate token and set cookie
     const token = await import('@/lib/auth').then((mod) =>
-      mod.signToken({ userId: user._id, email: user.email, role: user.role })
+      mod.signToken({ userId: 'admin', email: email, role: 'admin' })
     );
     
     await setAuthCookie(token);

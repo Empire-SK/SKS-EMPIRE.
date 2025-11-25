@@ -2,20 +2,20 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
-import connectDB from "@/lib/db";
-import Project from "@/lib/models/Project";
 import { revalidatePath } from "next/cache";
 
+// Mock data - replace with your actual data source later
+const mockProjects: any[] = [];
+
 async function getProjects() {
-    await connectDB();
-    return await Project.find({}).sort({ createdAt: -1 });
+    // TODO: Replace with your actual data fetching logic
+    return mockProjects;
 }
 
 async function deleteProject(formData: FormData) {
     'use server';
+    // TODO: Implement delete functionality with your data source
     const id = formData.get('id');
-    await connectDB();
-    await Project.findByIdAndDelete(id);
     revalidatePath('/admin/projects');
     revalidatePath('/projects');
 }

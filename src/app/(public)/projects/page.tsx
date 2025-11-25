@@ -2,15 +2,24 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink } from "lucide-react";
 import Link from "next/link";
-import connectDB from "@/lib/db";
-import Project from "@/lib/models/Project";
 
-export const dynamic = 'force-dynamic';
+// Mock data - replace with your actual data source later
+const mockProjects = [
+    {
+        _id: "1",
+        title: "Example Project 1",
+        description: "This is a sample project. Replace this with your actual projects.",
+        tags: ["React", "TypeScript", "Next.js"],
+        imageUrl: "",
+        demoLink: "https://example.com",
+        repoLink: "https://github.com/example/repo",
+        createdAt: new Date()
+    }
+];
 
 async function getProjects() {
-    await connectDB();
-    const projects = await Project.find({}).sort({ createdAt: -1 });
-    return projects;
+    // TODO: Replace with your actual data fetching logic
+    return mockProjects;
 }
 
 export default async function ProjectsPage() {
