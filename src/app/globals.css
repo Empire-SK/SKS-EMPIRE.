@@ -37,7 +37,7 @@
     --animate-accordion-up: accordion-up 0.2s ease-out;
     --animate-blob: blob 10s infinite;
     --animate-fade-in-up: fadeInUp 0.5s ease-out forwards;
-    --animate-float-slow: floatSlow 6s ease-in-out infinite;
+    --animate-float-slow: floatSlow 10s ease-in-out infinite;
     --animate-scan: scan 2s ease-in-out infinite;
 
     @keyframes accordion-down {
