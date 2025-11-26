@@ -1,56 +1,70 @@
 import React from 'react';
-import { Globe, Layers, Cpu } from 'lucide-react';
+import { Globe, Layers, Cpu, Smartphone, Code, Database } from 'lucide-react';
 import GlassCard from '../ui/GlassCard';
 
-const ServicesSection = () => (
+interface ServicesSectionProps {
+    services: any[];
+}
+
+const ICON_MAP: any = {
+    Globe, Layers, Cpu, Smartphone, Code, Database
+};
+
+const ServicesSection = ({ services }: ServicesSectionProps) => (
     <div className="animate-fade-in-up pb-32 relative">
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 font-black text-[10rem] md:text-[15rem] text-white/5 -z-10 select-none overflow-hidden leading-none pointer-events-none text-center">
             SERVICES
         </div>
 
-        <div className="mb-12 pt-8 text-center max-w-3xl mx-auto">
-            <span className="text-[#D0202F] font-bold uppercase tracking-widest text-sm mb-4 block">What I Offer</span>
-            <h2 className="text-4xl md:text-5xl font-black text-white leading-tight mb-6">
+        <div className="mb-16 pt-10 text-center max-w-5xl mx-auto px-6">
+            <span className="text-[#D0202F] font-bold uppercase tracking-[0.2em] text-xs mb-6 block">What I Offer</span>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight">
                 HIGH-END ENGINEERING <br /> FOR AMBITIOUS BRANDS.
             </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <GlassCard className="p-8 md:p-10 border-t-4 border-t-[#D0202F] hover:bg-zinc-900/50 transition-colors">
-                <Globe size={40} className="text-white mb-6" />
-                <h3 className="text-2xl font-bold text-white mb-4">Web Development</h3>
-                <p className="text-white/60 leading-relaxed">
-                    Building blazing fast, SEO-friendly websites using modern frameworks. I focus on performance, accessibility, and clean code architecture.
-                </p>
-                <ul className="mt-6 space-y-2 text-sm text-white/40">
-                    <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#D0202F] rounded-full"></div> React / Next.js</li>
-                    <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#D0202F] rounded-full"></div> CMS Integration</li>
-                </ul>
-            </GlassCard>
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {services && services.length > 0 ? services.map((service) => {
+                    const Icon = ICON_MAP[service.icon] || Globe;
 
-            <GlassCard className="p-8 md:p-10 border-t-4 border-t-zinc-700 hover:border-t-[#D0202F] hover:bg-zinc-900/50 transition-all">
-                <Layers size={40} className="text-white mb-6" />
-                <h3 className="text-2xl font-bold text-white mb-4">UI/UX Design</h3>
-                <p className="text-white/60 leading-relaxed">
-                    Designing intuitive and engaging user interfaces. I start with wireframes and user flows to ensure the best journey for your customers.
-                </p>
-                <ul className="mt-6 space-y-2 text-sm text-white/40">
-                    <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#D0202F] rounded-full"></div> Figma Prototyping</li>
-                    <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#D0202F] rounded-full"></div> Design Systems</li>
-                </ul>
-            </GlassCard>
+                    // Static features mapping based on service title for the "demo" look
+                    let features: string[] = [];
+                    const titleLower = service.title.toLowerCase();
+                    if (titleLower.includes('web')) {
+                        features = ['React / Next.js', 'CMS Integration', 'SEO Optimization'];
+                    } else if (titleLower.includes('ui') || titleLower.includes('design')) {
+                        features = ['Figma Prototyping', 'Design Systems', 'User Flows'];
+                    } else if (titleLower.includes('strategy') || titleLower.includes('tech')) {
+                        features = ['System Architecture', 'Performance Audits', 'Scalability Plans'];
+                    } else {
+                        features = ['Custom Solutions', 'Modern Stack', 'Best Practices'];
+                    }
 
-            <GlassCard className="p-8 md:p-10 border-t-4 border-t-zinc-700 hover:border-t-[#D0202F] hover:bg-zinc-900/50 transition-all">
-                <Cpu size={40} className="text-white mb-6" />
-                <h3 className="text-2xl font-bold text-white mb-4">Tech Strategy</h3>
-                <p className="text-white/60 leading-relaxed">
-                    Expertise in various tools and technologies to support effective project execution. I help you choose the right stack for scalability.
-                </p>
-                <ul className="mt-6 space-y-2 text-sm text-white/40">
-                    <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#D0202F] rounded-full"></div> System Architecture</li>
-                    <li className="flex items-center gap-2"><div className="w-1 h-1 bg-[#D0202F] rounded-full"></div> Performance Audits</li>
-                </ul>
-            </GlassCard>
+                    return (
+                        <GlassCard key={service.id} className="p-8 md:p-10 border border-white/10 hover:border-[#D0202F] bg-[#0a0a0a] group transition-all duration-300 rounded-2xl">
+                            <div className="mb-6 text-white group-hover:text-[#D0202F] transition-colors">
+                                <Icon size={48} strokeWidth={1.5} />
+                            </div>
+                            <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
+                            <p className="text-white/50 leading-relaxed mb-8 text-sm min-h-[80px]">
+                                {service.description}
+                            </p>
+
+                            <div className="space-y-3 border-t border-white/10 pt-6">
+                                {features.map((feature, idx) => (
+                                    <div key={idx} className="flex items-center gap-2 text-sm text-white/60">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-[#D0202F]"></div>
+                                        {feature}
+                                    </div>
+                                ))}
+                            </div>
+                        </GlassCard>
+                    );
+                }) : (
+                    <div className="text-white/40 col-span-3 text-center">No services listed yet.</div>
+                )}
+            </div>
         </div>
     </div>
 );

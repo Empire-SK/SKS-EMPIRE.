@@ -1,92 +1,75 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Github, ExternalLink } from "lucide-react";
-import Link from "next/link";
+import React from 'react';
+import { prisma } from '@/lib/prisma';
+import ProjectCard from '@/components/ui/ProjectCard';
+import { Github } from 'lucide-react';
+import GlassCard from '@/components/ui/GlassCard';
 
-// Mock data - replace with your actual data source later
-const mockProjects = [
-    {
-        _id: "1",
-        title: "Example Project 1",
-        description: "This is a sample project. Replace this with your actual projects.",
-        tags: ["React", "TypeScript", "Next.js"],
-        imageUrl: "",
-        demoLink: "https://example.com",
-        repoLink: "https://github.com/example/repo",
-        createdAt: new Date()
-    }
-];
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
 
 async function getProjects() {
-    // TODO: Replace with your actual data fetching logic
-    return mockProjects;
+    try {
+        const projects = await prisma.project.findMany({
+            orderBy: { order: 'asc' },
+        });
+        return projects;
+    } catch (error) {
+        console.error('Failed to fetch projects, using mock fallback:', error);
+        return [
+            { id: '1', title: 'E-Commerce Dashboard', category: 'Web Application', description: 'A comprehensive dashboard for managing online stores, featuring real-time analytics and inventory management.', imageUrl: '', imageColor: 'bg-zinc-900' },
+            { id: '2', title: 'AI Chat Interface', category: 'AI / Machine Learning', description: 'Modern chat UI integrated with OpenAI API, featuring streaming responses and code syntax highlighting.', imageUrl: '', imageColor: 'bg-[#D0202F]/10' },
+            { id: '3', title: 'Portfolio Platform', category: 'Web Development', description: 'A premium portfolio website built with Next.js 14 and Tailwind CSS.', imageUrl: '', imageColor: 'bg-blue-900/10' },
+        ];
+    }
 }
 
 export default async function ProjectsPage() {
     const projects = await getProjects();
 
     return (
-        <div className="container mx-auto px-4 py-12">
-            <div className="space-y-12">
-                <div className="space-y-4 text-center">
-                    <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">My Projects</h1>
-                    <p className="mx-auto max-w-2xl text-muted-foreground">
-                        A collection of my recent work and experiments.
-                    </p>
+        <div className="min-h-screen pt-32 pb-20 relative overflow-hidden bg-black">
+            {/* Background Text */}
+            <div className="fixed top-[10%] left-[-5%] font-black text-[15rem] text-white/5 -z-10 select-none overflow-hidden leading-none pointer-events-none">
+                WORK
+            </div>
+
+            {/* Centered Container */}
+            <div className="max-w-5xl mx-auto px-6 relative z-10">
+                {/* Header Section - Centered */}
+                <div className="mb-16 pt-12 text-center">
+                    <div className="flex items-center justify-center gap-4 mb-6">
+                        <div className="h-[1px] w-12 bg-[#D0202F]"></div>
+                        <span className="text-[#D0202F] font-bold uppercase tracking-[0.2em] text-xs">Selected Projects</span>
+                        <div className="h-[1px] w-12 bg-[#D0202F]"></div>
+                    </div>
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mx-auto max-w-3xl">
+                        DIGITAL SOLUTIONS FOR THE MODERN WEB.
+                    </h1>
                 </div>
 
-                {projects.length === 0 ? (
-                    <div className="text-center py-12">
-                        <p className="text-muted-foreground">No projects found. Check back soon!</p>
-                    </div>
-                ) : (
-                    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                        {projects.map((project: any, index: number) => (
-                            <Card key={project._id} className="flex flex-col overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1 border-muted/50">
-                                <div className="aspect-video w-full bg-muted relative overflow-hidden group">
-                                    <div className="absolute inset-0 flex items-center justify-center bg-secondary text-secondary-foreground transition-transform duration-500 group-hover:scale-105">
-                                        {project.imageUrl ? (
-                                            <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
-                                        ) : (
-                                            <span>No Image</span>
-                                        )}
-                                    </div>
-                                </div>
-                                <CardHeader>
-                                    <CardTitle>{project.title}</CardTitle>
-                                    <div className="flex flex-wrap gap-2 mt-2">
-                                        {project.tags.map((tag: string) => (
-                                            <span key={tag} className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary/10 text-primary hover:bg-primary/20">
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </CardHeader>
-                                <CardContent className="flex-1">
-                                    <CardDescription className="line-clamp-3">
-                                        {project.description}
-                                    </CardDescription>
-                                </CardContent>
-                                <CardFooter className="flex gap-4">
-                                    {project.demoLink && (
-                                        <Button asChild variant="default" size="sm" className="flex-1">
-                                            <Link href={project.demoLink} target="_blank" rel="noreferrer">
-                                                <ExternalLink className="mr-2 h-4 w-4" /> Demo
-                                            </Link>
-                                        </Button>
-                                    )}
-                                    {project.repoLink && (
-                                        <Button asChild variant="outline" size="sm" className="flex-1">
-                                            <Link href={project.repoLink} target="_blank" rel="noreferrer">
-                                                <Github className="mr-2 h-4 w-4" /> Code
-                                            </Link>
-                                        </Button>
-                                    )}
-                                </CardFooter>
-                            </Card>
-                        ))}
-                    </div>
-                )}
+                {/* Projects Grid - Centered */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-20">
+                    {projects.map((project) => (
+                        <div key={project.id} className="h-[480px]">
+                            <ProjectCard
+                                title={project.title}
+                                category={project.category}
+                                imageColor={project.imageColor || 'bg-zinc-900'}
+                                imageUrl={project.imageUrl || ''}
+                                description={project.description}
+                            />
+                        </div>
+                    ))}
+
+                    {/* GitHub Link Card */}
+                    <a href="https://github.com/Empire-SK" target="_blank" rel="noopener noreferrer" className="block h-[480px]">
+                        <GlassCard className="h-full flex flex-col items-center justify-center text-center p-8 border border-white/10 hover:border-[#D0202F] bg-[#0a0a0a] transition-all group cursor-pointer hover:shadow-[0_0_30px_rgba(208,32,47,0.1)] rounded-2xl">
+                            <Github size={64} strokeWidth={1} className="text-white/20 group-hover:text-white mb-6 transition-colors duration-300 transform group-hover:scale-110" />
+                            <h3 className="text-2xl font-bold text-white mb-2">View More on GitHub</h3>
+                            <p className="text-white/40 text-sm">Explore source code and contributions</p>
+                        </GlassCard>
+                    </a>
+                </div>
             </div>
         </div>
     );
