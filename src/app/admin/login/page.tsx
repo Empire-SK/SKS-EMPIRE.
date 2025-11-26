@@ -42,7 +42,7 @@ export default function AdminLogin() {
             <div className="w-full max-w-sm px-6">
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <div className="w-2 h-2 bg-white rounded-full mx-auto mb-4"></div>
+                    <div className="w-2 h-2 bg-[#D0202F] rounded-full mx-auto mb-4"></div>
                     <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">
                         ADMIN ACCESS
                     </h1>
@@ -54,34 +54,34 @@ export default function AdminLogin() {
                 {/* Login Form */}
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {error && (
-                        <div className="p-3 bg-red-500/10 border border-red-500/30 rounded text-red-400 text-sm text-center">
+                        <div className="p-3 bg-[#D0202F]/10 border border-[#D0202F]/30 rounded text-[#D0202F] text-sm text-center">
                             {error}
                         </div>
                     )}
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-semibold text-white/50 uppercase tracking-widest block">
+                        <label className="text-[10px] font-semibold text-[#D0202F] uppercase tracking-widest block">
                             Username
                         </label>
                         <input
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            className="w-full bg-transparent border border-white/10 rounded px-4 py-3 text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-white/30 transition-colors"
+                            className="w-full bg-transparent border border-white/10 rounded px-4 py-3 text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-[#D0202F] focus:shadow-[0_0_10px_rgba(208,32,47,0.3)] transition-all"
                             placeholder="Enter username"
                             required
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-semibold text-white/50 uppercase tracking-widest block">
+                        <label className="text-[10px] font-semibold text-[#D0202F] uppercase tracking-widest block">
                             Password
                         </label>
                         <input
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full bg-transparent border border-white/10 rounded px-4 py-3 text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-white/30 transition-colors"
+                            className="w-full bg-transparent border border-white/10 rounded px-4 py-3 text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-[#D0202F] focus:shadow-[0_0_10px_rgba(208,32,47,0.3)] transition-all"
                             placeholder="Enter password"
                             required
                         />
@@ -90,7 +90,7 @@ export default function AdminLogin() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-white hover:bg-white/90 text-black font-bold py-3.5 rounded uppercase tracking-widest text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-[#D0202F] hover:bg-red-600 text-white font-bold py-3.5 rounded uppercase tracking-widest text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(208,32,47,0.3)] hover:shadow-[0_0_30px_rgba(208,32,47,0.5)]"
                     >
                         {loading ? 'Authenticating...' : 'AUTHENTICATE'}
                     </button>
@@ -100,7 +100,7 @@ export default function AdminLogin() {
                 <div className="text-center mt-8">
                     <Link
                         href="/"
-                        className="text-white/30 hover:text-white/50 text-xs transition-colors"
+                        className="text-white/30 hover:text-[#D0202F] text-xs transition-colors"
                     >
                         ← Back to Home
                     </Link>
