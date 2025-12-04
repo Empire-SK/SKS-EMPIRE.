@@ -10,7 +10,13 @@ async function isAuthenticated() {
 
 export async function GET() {
   try {
-    const profile = await prisma.profile.findFirst();
+    let profile = await prisma.profile.findUnique({
+      where: { id: 'default-profile' }
+    });
+
+    if (!profile) {
+      profile = await prisma.profile.findFirst();
+    }
     return NextResponse.json(profile || {});
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch profile' }, { status: 500 });

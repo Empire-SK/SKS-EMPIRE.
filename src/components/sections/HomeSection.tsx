@@ -66,17 +66,17 @@ const HomeSection = ({ setActiveTab, profile, stats, projects }: HomeSectionProp
 
                     {/* Profile Card - Behind/Left */}
                     <div className="absolute top-24 right-24 w-80 h-[450px] bg-[#1a1a1a] rounded-3xl overflow-hidden shadow-2xl rotate-[-6deg] hover:rotate-0 transition-transform duration-500 z-10 hover:z-30 border border-white/5 group">
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#D0202F] z-10 opacity-80"></div>
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#D0202F] z-10 opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
                         <div className="w-full h-full bg-[#111] flex items-center justify-center relative">
                             {profile?.imageUrl ? (
-                                <img src={profile.imageUrl} alt="Profile" className="w-full h-full object-cover mix-blend-overlay opacity-50" />
+                                <img src={profile.imageUrl} alt="Profile" className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
                             ) : (
                                 <User size={120} className="text-white/10 relative z-0" />
                             )}
                         </div>
                         <div className="absolute bottom-8 left-8 z-20">
                             <h2 className="text-5xl font-black text-white italic tracking-tighter mb-1">SKS</h2>
-                            <p className="text-white/80 text-xs font-mono tracking-[0.2em] uppercase">EST. 2025</p>
+                            <p className="text-white/80 text-xs font-bold tracking-[0.2em] uppercase">EST. 2025</p>
                         </div>
                     </div>
                 </div>

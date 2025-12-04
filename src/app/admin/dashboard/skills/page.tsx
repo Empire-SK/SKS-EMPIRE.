@@ -2,6 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Save, X, Sparkles } from 'lucide-react';
+import AdminLoader from '@/components/admin/AdminLoader';
+import { AdminInput } from '@/components/admin/ui/AdminInput';
+import { AdminButton } from '@/components/admin/ui/AdminButton';
 
 interface Skill {
     id: string;
@@ -63,7 +66,7 @@ export default function SkillsPage() {
         }
     };
 
-    if (loading) return <div className="text-white">Loading...</div>;
+    if (loading) return <AdminLoader message="Loading skills..." />;
 
     return (
         <>
@@ -73,12 +76,12 @@ export default function SkillsPage() {
                         <h2 className="text-3xl font-bold text-white mb-2">Skills (Levels)</h2>
                         <p className="text-white/40">Manage your proficiency levels.</p>
                     </div>
-                    <button
+                    <AdminButton
                         onClick={() => { setCurrentSkill({}); setIsEditing(true); }}
-                        className="bg-[#D0202F] hover:bg-red-600 text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 transition-all"
+                        icon={Plus}
                     >
-                        <Plus size={20} /> Add Skill
-                    </button>
+                        Add Skill
+                    </AdminButton>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -127,51 +130,42 @@ export default function SkillsPage() {
 
                         <div className="p-6 overflow-y-auto custom-scrollbar">
                             <form id="skill-form" onSubmit={handleSave} className="space-y-6">
-                                <div className="space-y-2">
-                                    <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Skill Name</label>
-                                    <input
-                                        value={currentSkill.name || ''}
-                                        onChange={(e) => setCurrentSkill({ ...currentSkill, name: e.target.value })}
-                                        className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none"
-                                        placeholder="e.g. React"
-                                        required
-                                    />
-                                </div>
+                                <AdminInput
+                                    label="Skill Name"
+                                    value={currentSkill.name || ''}
+                                    onChange={(e) => setCurrentSkill({ ...currentSkill, name: e.target.value })}
+                                    placeholder="e.g. React"
+                                    required
+                                />
 
                                 <div className="grid grid-cols-2 gap-6">
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Percentage (0-100)</label>
-                                        <input
-                                            type="number"
-                                            min="0"
-                                            max="100"
-                                            value={currentSkill.percentage || ''}
-                                            onChange={(e) => setCurrentSkill({ ...currentSkill, percentage: parseInt(e.target.value) })}
-                                            className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Category</label>
-                                        <input
-                                            value={currentSkill.category || ''}
-                                            onChange={(e) => setCurrentSkill({ ...currentSkill, category: e.target.value })}
-                                            className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none"
-                                            placeholder="e.g. Frontend"
-                                        />
-                                    </div>
+                                    <AdminInput
+                                        label="Percentage (0-100)"
+                                        type="number"
+                                        min="0"
+                                        max="100"
+                                        value={currentSkill.percentage || ''}
+                                        onChange={(e) => setCurrentSkill({ ...currentSkill, percentage: parseInt(e.target.value) })}
+                                        required
+                                    />
+                                    <AdminInput
+                                        label="Category"
+                                        value={currentSkill.category || ''}
+                                        onChange={(e) => setCurrentSkill({ ...currentSkill, category: e.target.value })}
+                                        placeholder="e.g. Frontend"
+                                    />
                                 </div>
                             </form>
                         </div>
 
                         <div className="p-6 border-t border-white/10 flex justify-end flex-shrink-0">
-                            <button
+                            <AdminButton
                                 type="submit"
                                 form="skill-form"
-                                className="bg-[#D0202F] hover:bg-red-600 text-white font-bold py-3 px-8 rounded-xl uppercase tracking-widest transition-all shadow-lg flex items-center gap-2"
+                                icon={Save}
                             >
-                                <Save size={20} /> Save Skill
-                            </button>
+                                Save Skill
+                            </AdminButton>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { Save, Loader2, Upload, User } from 'lucide-react';
+import AdminLoader from '@/components/admin/AdminLoader';
+import { AdminInput } from '@/components/admin/ui/AdminInput';
+import { AdminTextarea } from '@/components/admin/ui/AdminTextarea';
+import { AdminButton } from '@/components/admin/ui/AdminButton';
 
 export default function ProfilePage() {
     const [formData, setFormData] = useState({
@@ -28,13 +32,31 @@ export default function ProfilePage() {
         fetch('/api/profile')
             .then((res) => res.json())
             .then((data) => {
+                console.log('Fetched profile data:', data);
                 if (data && !data.error) {
-                    setFormData((prev) => ({ ...prev, ...data }));
+                    // Ensure all fields are set, converting null to empty string
+                    const profileData = {
+                        name: data.name || '',
+                        role: data.role || '',
+                        bio: data.bio || '',
+                        about: data.about || '',
+                        email: data.email || '',
+                        phone: data.phone || '',
+                        location: data.location || '',
+                        github: data.github || '',
+                        linkedin: data.linkedin || '',
+                        twitter: data.twitter || '',
+                        instagram: data.instagram || '',
+                        resumeLink: data.resumeLink || '',
+                        imageUrl: data.imageUrl || '',
+                    };
+                    console.log('Setting form data:', profileData);
+                    setFormData(profileData);
                 }
                 setLoading(false);
             })
             .catch((err) => {
-                console.error(err);
+                console.error('Error fetching profile:', err);
                 setLoading(false);
             });
     }, []);
@@ -92,7 +114,7 @@ export default function ProfilePage() {
         }
     };
 
-    if (loading) return <div className="text-white">Loading...</div>;
+    if (loading) return <AdminLoader message="Loading profile data..." />;
 
     return (
         <div className="max-w-4xl mx-auto animate-fade-in-up">
@@ -149,21 +171,35 @@ export default function ProfilePage() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                            <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Full Name</label>
-                            <input name="name" value={formData.name} onChange={handleChange} className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none" />
+                        <AdminInput
+                            label="Full Name"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                        />
+                        <AdminInput
+                            label="Role / Title"
+                            name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                        />
+                        <div className="col-span-2">
+                            <AdminTextarea
+                                label="Short Bio (Hero Section)"
+                                name="bio"
+                                value={formData.bio}
+                                onChange={handleChange}
+                                rows={2}
+                            />
                         </div>
-                        <div className="space-y-2">
-                            <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Role / Title</label>
-                            <input name="role" value={formData.role} onChange={handleChange} className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none" />
-                        </div>
-                        <div className="col-span-2 space-y-2">
-                            <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Short Bio (Hero Section)</label>
-                            <textarea name="bio" value={formData.bio} onChange={handleChange} rows={2} className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none" />
-                        </div>
-                        <div className="col-span-2 space-y-2">
-                            <label className="text-xs font-bold text-white/60 uppercase tracking-widest">About Me (Full Description)</label>
-                            <textarea name="about" value={formData.about} onChange={handleChange} rows={5} className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none" />
+                        <div className="col-span-2">
+                            <AdminTextarea
+                                label="About Me (Full Description)"
+                                name="about"
+                                value={formData.about}
+                                onChange={handleChange}
+                                rows={5}
+                            />
                         </div>
                     </div>
                 </div>
@@ -172,42 +208,53 @@ export default function ProfilePage() {
                 <div className="bg-[#111] border border-white/5 p-8 rounded-2xl space-y-6">
                     <h3 className="text-xl font-bold text-white border-b border-white/10 pb-4">Contact & Social</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                            <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Email</label>
-                            <input name="email" value={formData.email} onChange={handleChange} className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none" />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Phone</label>
-                            <input name="phone" value={formData.phone} onChange={handleChange} className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none" />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Location</label>
-                            <input name="location" value={formData.location} onChange={handleChange} className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none" />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-xs font-bold text-white/60 uppercase tracking-widest">GitHub URL</label>
-                            <input name="github" value={formData.github || ''} onChange={handleChange} className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none" />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-xs font-bold text-white/60 uppercase tracking-widest">LinkedIn URL</label>
-                            <input name="linkedin" value={formData.linkedin || ''} onChange={handleChange} className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none" />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Resume Link</label>
-                            <input name="resumeLink" value={formData.resumeLink || ''} onChange={handleChange} className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none" />
-                        </div>
+                        <AdminInput
+                            label="Email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+                        <AdminInput
+                            label="Phone"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                        />
+                        <AdminInput
+                            label="Location"
+                            name="location"
+                            value={formData.location}
+                            onChange={handleChange}
+                        />
+                        <AdminInput
+                            label="GitHub URL"
+                            name="github"
+                            value={formData.github || ''}
+                            onChange={handleChange}
+                        />
+                        <AdminInput
+                            label="LinkedIn URL"
+                            name="linkedin"
+                            value={formData.linkedin || ''}
+                            onChange={handleChange}
+                        />
+                        <AdminInput
+                            label="Resume Link"
+                            name="resumeLink"
+                            value={formData.resumeLink || ''}
+                            onChange={handleChange}
+                        />
                     </div>
                 </div>
 
                 <div className="flex justify-end">
-                    <button
+                    <AdminButton
                         type="submit"
-                        disabled={saving}
-                        className="bg-[#D0202F] hover:bg-red-600 text-white font-bold py-3 px-8 rounded-xl uppercase tracking-widest transition-all shadow-lg flex items-center gap-2 disabled:opacity-50"
+                        isLoading={saving}
+                        icon={Save}
                     >
-                        {saving ? <Loader2 className="animate-spin" /> : <Save size={20} />}
                         Save Changes
-                    </button>
+                    </AdminButton>
                 </div>
             </form>
         </div>

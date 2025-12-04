@@ -2,6 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Save, X, Calendar } from 'lucide-react';
+import AdminLoader from '@/components/admin/AdminLoader';
+import { AdminInput } from '@/components/admin/ui/AdminInput';
+import { AdminTextarea } from '@/components/admin/ui/AdminTextarea';
+import { AdminButton } from '@/components/admin/ui/AdminButton';
 
 interface TimelineItem {
     id: string;
@@ -64,7 +68,7 @@ export default function TimelinePage() {
         }
     };
 
-    if (loading) return <div className="text-white">Loading...</div>;
+    if (loading) return <AdminLoader message="Loading timeline..." />;
 
     return (
         <>
@@ -74,12 +78,12 @@ export default function TimelinePage() {
                         <h2 className="text-3xl font-bold text-white mb-2">Timeline</h2>
                         <p className="text-white/40">Manage your journey and experience.</p>
                     </div>
-                    <button
+                    <AdminButton
                         onClick={() => { setCurrentItem({}); setIsEditing(true); }}
-                        className="bg-[#D0202F] hover:bg-red-600 text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 transition-all"
+                        icon={Plus}
                     >
-                        <Plus size={20} /> Add Entry
-                    </button>
+                        Add Entry
+                    </AdminButton>
                 </div>
 
                 <div className="space-y-4">
@@ -127,58 +131,46 @@ export default function TimelinePage() {
                         <div className="p-6 overflow-y-auto custom-scrollbar">
                             <form id="timeline-form" onSubmit={handleSave} className="space-y-6">
                                 <div className="grid grid-cols-2 gap-6">
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Year</label>
-                                        <input
-                                            value={currentItem.year || ''}
-                                            onChange={(e) => setCurrentItem({ ...currentItem, year: e.target.value })}
-                                            className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none"
-                                            placeholder="e.g. 2024"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Role (Optional)</label>
-                                        <input
-                                            value={currentItem.role || ''}
-                                            onChange={(e) => setCurrentItem({ ...currentItem, role: e.target.value })}
-                                            className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none"
-                                            placeholder="e.g. Lead Developer"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="space-y-2">
-                                    <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Title / Institution</label>
-                                    <input
-                                        value={currentItem.title || ''}
-                                        onChange={(e) => setCurrentItem({ ...currentItem, title: e.target.value })}
-                                        className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none"
+                                    <AdminInput
+                                        label="Year"
+                                        value={currentItem.year || ''}
+                                        onChange={(e) => setCurrentItem({ ...currentItem, year: e.target.value })}
+                                        placeholder="e.g. 2024"
                                         required
+                                    />
+                                    <AdminInput
+                                        label="Role (Optional)"
+                                        value={currentItem.role || ''}
+                                        onChange={(e) => setCurrentItem({ ...currentItem, role: e.target.value })}
+                                        placeholder="e.g. Lead Developer"
                                     />
                                 </div>
 
-                                <div className="space-y-2">
-                                    <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Description</label>
-                                    <textarea
-                                        value={currentItem.description || ''}
-                                        onChange={(e) => setCurrentItem({ ...currentItem, description: e.target.value })}
-                                        rows={4}
-                                        className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none"
-                                        required
-                                    />
-                                </div>
+                                <AdminInput
+                                    label="Title / Institution"
+                                    value={currentItem.title || ''}
+                                    onChange={(e) => setCurrentItem({ ...currentItem, title: e.target.value })}
+                                    required
+                                />
+
+                                <AdminTextarea
+                                    label="Description"
+                                    value={currentItem.description || ''}
+                                    onChange={(e) => setCurrentItem({ ...currentItem, description: e.target.value })}
+                                    rows={4}
+                                    required
+                                />
                             </form>
                         </div>
 
                         <div className="p-6 border-t border-white/10 flex justify-end flex-shrink-0">
-                            <button
+                            <AdminButton
                                 type="submit"
                                 form="timeline-form"
-                                className="bg-[#D0202F] hover:bg-red-600 text-white font-bold py-3 px-8 rounded-xl uppercase tracking-widest transition-all shadow-lg flex items-center gap-2"
+                                icon={Save}
                             >
-                                <Save size={20} /> Save Entry
-                            </button>
+                                Save Entry
+                            </AdminButton>
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,7 @@ interface ProjectsSectionProps {
 }
 
 const ProjectsSection = ({ projects }: ProjectsSectionProps) => (
-    <div className="animate-fade-in-up pb-32 relative">
+    <div className="animate-fade-in-up pb-32 relative max-w-7xl mx-auto px-6">
         <div className="absolute top-[-2%] left-[-2%] font-black text-[12rem] md:text-[18rem] text-white/5 -z-10 select-none overflow-hidden leading-none pointer-events-none">
             WORK
         </div>

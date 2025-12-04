@@ -46,6 +46,13 @@ export default function HomeClient({ profile, projects, services, timeline, skil
                 {activeTab === 'contact' && <ContactSection profile={profile} />}
             </div>
 
+            {/* Copyright Footer - positioned above navbar */}
+            <div className="relative z-20 pb-24 pt-8">
+                <p className="text-center text-white/30 text-sm">
+                    © 2025 SABIN K SANTHOSH.
+                </p>
+            </div>
+
             <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
         </main>
     );

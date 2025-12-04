@@ -2,6 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Save, X, Globe, Layers, Cpu, Smartphone, Code, Database } from 'lucide-react';
+import AdminLoader from '@/components/admin/AdminLoader';
+import { AdminInput } from '@/components/admin/ui/AdminInput';
+import { AdminTextarea } from '@/components/admin/ui/AdminTextarea';
+import { AdminButton } from '@/components/admin/ui/AdminButton';
 
 interface Service {
     id: string;
@@ -72,7 +76,7 @@ export default function ServicesPage() {
         }
     };
 
-    if (loading) return <div className="text-white">Loading...</div>;
+    if (loading) return <AdminLoader message="Loading services..." />;
 
     return (
         <>
@@ -82,12 +86,12 @@ export default function ServicesPage() {
                         <h2 className="text-3xl font-bold text-white mb-2">Services</h2>
                         <p className="text-white/40">Manage the services you offer.</p>
                     </div>
-                    <button
+                    <AdminButton
                         onClick={() => { setCurrentService({ icon: 'Globe' }); setIsEditing(true); }}
-                        className="bg-[#D0202F] hover:bg-red-600 text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 transition-all"
+                        icon={Plus}
                     >
-                        <Plus size={20} /> Add Service
-                    </button>
+                        Add Service
+                    </AdminButton>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -131,15 +135,12 @@ export default function ServicesPage() {
 
                         <div className="p-6 overflow-y-auto custom-scrollbar">
                             <form id="service-form" onSubmit={handleSave} className="space-y-6">
-                                <div className="space-y-2">
-                                    <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Title</label>
-                                    <input
-                                        value={currentService.title || ''}
-                                        onChange={(e) => setCurrentService({ ...currentService, title: e.target.value })}
-                                        className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none"
-                                        required
-                                    />
-                                </div>
+                                <AdminInput
+                                    label="Title"
+                                    value={currentService.title || ''}
+                                    onChange={(e) => setCurrentService({ ...currentService, title: e.target.value })}
+                                    required
+                                />
 
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Icon</label>
@@ -161,27 +162,24 @@ export default function ServicesPage() {
                                     </div>
                                 </div>
 
-                                <div className="space-y-2">
-                                    <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Description</label>
-                                    <textarea
-                                        value={currentService.description || ''}
-                                        onChange={(e) => setCurrentService({ ...currentService, description: e.target.value })}
-                                        rows={4}
-                                        className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none"
-                                        required
-                                    />
-                                </div>
+                                <AdminTextarea
+                                    label="Description"
+                                    value={currentService.description || ''}
+                                    onChange={(e) => setCurrentService({ ...currentService, description: e.target.value })}
+                                    rows={4}
+                                    required
+                                />
                             </form>
                         </div>
 
                         <div className="p-6 border-t border-white/10 flex justify-end flex-shrink-0">
-                            <button
+                            <AdminButton
                                 type="submit"
                                 form="service-form"
-                                className="bg-[#D0202F] hover:bg-red-600 text-white font-bold py-3 px-8 rounded-xl uppercase tracking-widest transition-all shadow-lg flex items-center gap-2"
+                                icon={Save}
                             >
-                                <Save size={20} /> Save Service
-                            </button>
+                                Save Service
+                            </AdminButton>
                         </div>
                     </div>
                 </div>

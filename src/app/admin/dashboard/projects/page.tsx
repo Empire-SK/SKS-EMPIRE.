@@ -2,6 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Save, X, Upload, Github, ExternalLink } from 'lucide-react';
+import AdminLoader from '@/components/admin/AdminLoader';
+import { AdminInput } from '@/components/admin/ui/AdminInput';
+import { AdminTextarea } from '@/components/admin/ui/AdminTextarea';
+import { AdminButton } from '@/components/admin/ui/AdminButton';
 
 interface Project {
     id: string;
@@ -92,7 +96,7 @@ export default function ProjectsPage() {
         }
     };
 
-    if (loading) return <div className="text-white">Loading...</div>;
+    if (loading) return <AdminLoader message="Loading projects..." />;
 
     return (
         <>
@@ -102,12 +106,12 @@ export default function ProjectsPage() {
                         <h2 className="text-3xl font-bold text-white mb-2">Projects</h2>
                         <p className="text-white/40">Manage your portfolio projects.</p>
                     </div>
-                    <button
+                    <AdminButton
                         onClick={() => { setCurrentProject({}); setIsEditing(true); }}
-                        className="bg-[#D0202F] hover:bg-red-600 text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 transition-all"
+                        icon={Plus}
                     >
-                        <Plus size={20} /> Add Project
-                    </button>
+                        Add Project
+                    </AdminButton>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -161,31 +165,24 @@ export default function ProjectsPage() {
                         <div className="p-6 overflow-y-auto custom-scrollbar">
                             <form id="project-form" onSubmit={handleSave} className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Title</label>
-                                        <input
-                                            value={currentProject.title || ''}
-                                            onChange={(e) => setCurrentProject({ ...currentProject, title: e.target.value })}
-                                            className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Category</label>
-                                        <input
-                                            value={currentProject.category || ''}
-                                            onChange={(e) => setCurrentProject({ ...currentProject, category: e.target.value })}
-                                            className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="col-span-2 space-y-2">
-                                        <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Description</label>
-                                        <textarea
+                                    <AdminInput
+                                        label="Title"
+                                        value={currentProject.title || ''}
+                                        onChange={(e) => setCurrentProject({ ...currentProject, title: e.target.value })}
+                                        required
+                                    />
+                                    <AdminInput
+                                        label="Category"
+                                        value={currentProject.category || ''}
+                                        onChange={(e) => setCurrentProject({ ...currentProject, category: e.target.value })}
+                                        required
+                                    />
+                                    <div className="col-span-2">
+                                        <AdminTextarea
+                                            label="Description"
                                             value={currentProject.description || ''}
                                             onChange={(e) => setCurrentProject({ ...currentProject, description: e.target.value })}
                                             rows={3}
-                                            className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none"
                                             required
                                         />
                                     </div>
@@ -224,23 +221,17 @@ export default function ProjectsPage() {
                                         </div>
                                     </div>
 
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-white/60 uppercase tracking-widest">GitHub URL</label>
-                                        <input
-                                            value={currentProject.githubUrl || ''}
-                                            onChange={(e) => setCurrentProject({ ...currentProject, githubUrl: e.target.value })}
-                                            className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none"
-                                            placeholder="https://github.com/..."
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Live URL</label>
-                                        <input
-                                            value={currentProject.liveUrl || ''}
-                                            onChange={(e) => setCurrentProject({ ...currentProject, liveUrl: e.target.value })}
-                                            className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-white focus:border-[#D0202F] focus:outline-none"
-                                        />
-                                    </div>
+                                    <AdminInput
+                                        label="GitHub URL"
+                                        value={currentProject.githubUrl || ''}
+                                        onChange={(e) => setCurrentProject({ ...currentProject, githubUrl: e.target.value })}
+                                        placeholder="https://github.com/..."
+                                    />
+                                    <AdminInput
+                                        label="Live URL"
+                                        value={currentProject.liveUrl || ''}
+                                        onChange={(e) => setCurrentProject({ ...currentProject, liveUrl: e.target.value })}
+                                    />
                                     <div className="col-span-2 flex items-center gap-3 p-3 bg-white/5 rounded-xl border border-white/10">
                                         <input
                                             type="checkbox"
@@ -258,13 +249,13 @@ export default function ProjectsPage() {
                         </div>
 
                         <div className="p-6 border-t border-white/10 flex justify-end flex-shrink-0">
-                            <button
+                            <AdminButton
                                 type="submit"
                                 form="project-form"
-                                className="bg-[#D0202F] hover:bg-red-600 text-white font-bold py-3 px-8 rounded-xl uppercase tracking-widest transition-all shadow-lg flex items-center gap-2"
+                                icon={Save}
                             >
-                                <Save size={20} /> Save Project
-                            </button>
+                                Save Project
+                            </AdminButton>
                         </div>
                     </div>
                 </div>

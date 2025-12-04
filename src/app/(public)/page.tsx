@@ -7,7 +7,13 @@ export const dynamic = 'force-dynamic';
 
 async function getData() {
     try {
-        const profile = await prisma.profile.findFirst();
+        let profile = await prisma.profile.findUnique({
+            where: { id: 'default-profile' }
+        });
+
+        if (!profile) {
+            profile = await prisma.profile.findFirst();
+        }
         const projects = await prisma.project.findMany({ orderBy: { order: 'asc' } });
         const services = await prisma.service.findMany({ orderBy: { order: 'asc' } });
         const timeline = await prisma.timelineItem.findMany({ orderBy: { year: 'desc' } });
