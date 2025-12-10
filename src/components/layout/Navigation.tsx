@@ -16,21 +16,21 @@ const Navigation = ({ activeTab, setActiveTab }: NavigationProps) => {
     ];
 
     return (
-        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-[100] w-auto max-w-[90vw]">
-            <div className="flex items-center gap-1 p-1.5 rounded-full bg-black/20 backdrop-blur-2xl border border-white/10 shadow-2xl ring-1 ring-white/5">
+        <div className="fixed bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-[100] w-auto max-w-[95vw] sm:max-w-[90vw] px-2">
+            <div className="flex items-center gap-0.5 sm:gap-1 p-1 sm:p-1.5 rounded-full bg-black/20 backdrop-blur-2xl border border-white/10 shadow-2xl ring-1 ring-white/5">
                 {tabs.map((tab) => (
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`relative flex items-center gap-2 px-4 py-2.5 rounded-full transition-all duration-300 ease-out group ${activeTab === tab.id
+                        className={`relative flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-2.5 rounded-full transition-all duration-300 ease-out group min-w-[44px] ${activeTab === tab.id
                             ? 'bg-[#D0202F] text-white shadow-[0_0_20px_rgba(208,32,47,0.4)] font-medium'
                             : 'text-white/60 hover:text-white hover:bg-white/10'
                             }`}
                     >
-                        <span className="relative z-10 flex items-center gap-2">
-                            {tab.icon}
+                        <span className="relative z-10 flex items-center gap-1 sm:gap-2">
+                            <span className="flex-shrink-0">{tab.icon}</span>
                             <span
-                                className={`text-sm whitespace-nowrap overflow-hidden transition-all duration-300 ${activeTab === tab.id ? 'max-w-[100px] opacity-100 ml-1' : 'max-w-0 opacity-0 md:max-w-[100px] md:opacity-100 md:ml-1'
+                                className={`text-xs sm:text-sm whitespace-nowrap overflow-hidden transition-all duration-300 ${activeTab === tab.id ? 'max-w-[80px] sm:max-w-[100px] opacity-100 ml-0.5 sm:ml-1' : 'max-w-0 opacity-0 md:max-w-[100px] md:opacity-100 md:ml-1'
                                     }`}
                             >
                                 {tab.label}

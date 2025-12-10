@@ -87,7 +87,7 @@ const HomeSection = ({ setActiveTab, profile, stats, projects }: HomeSectionProp
                     <p className="text-[#D0202F] text-xs font-bold uppercase tracking-widest mb-2">Powering The Core</p>
                     <div className="flex flex-wrap gap-2 opacity-60">
                         <Cpu size={20} /> <Globe size={20} /> <Layers size={20} /> <Smartphone size={20} />
-                        <span className="text-sm font-mono ml-2">React / Next / Three / Node</span>
+                        <span className="text-sm font-mono ml-2">React / Next / Node</span>
                     </div>
                 </GlassCard>
 
