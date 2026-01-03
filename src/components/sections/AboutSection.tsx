@@ -41,18 +41,33 @@ const AboutSection = ({ profile, timeline, skills }: AboutSectionProps) => (
                     </div>
                 </GlassCard>
 
-                {/* Experience Grid */}
+                {/* Experience Grid - Now Dynamic */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <GlassCard className="p-6 border-l-4 border-l-[#D0202F]">
-                        <h4 className="text-white font-bold text-lg">IEEE Intern</h4>
-                        <p className="text-[#D0202F] text-xs font-bold uppercase tracking-widest mb-2">Education Society Kerala</p>
-                        <p className="text-white/50 text-sm">Contributed to educational initiatives and projects, enhancing community engagement.</p>
-                    </GlassCard>
-                    <GlassCard className="p-6 border-l-4 border-l-white/20">
-                        <h4 className="text-white font-bold text-lg">Tech Coordinator</h4>
-                        <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-2">College of Eng. Kidangoor</p>
-                        <p className="text-white/50 text-sm">Managed technical setups and ensured smooth execution of campus events.</p>
-                    </GlassCard>
+                    {timeline && timeline.length > 0 ? (
+                        timeline.slice(0, 2).map((item, index) => (
+                            <GlassCard key={item.id} className={`p-6 border-l-4 ${index % 2 === 0 ? 'border-l-[#D0202F]' : 'border-l-white/20'}`}>
+                                <h4 className="text-white font-bold text-lg">{item.role || item.title}</h4>
+                                <p className={`text-xs font-bold uppercase tracking-widest mb-2 ${index % 2 === 0 ? 'text-[#D0202F]' : 'text-white/40'}`}>
+                                    {item.role ? item.title : item.year}
+                                </p>
+                                <p className="text-white/50 text-sm line-clamp-3">{item.description}</p>
+                            </GlassCard>
+                        ))
+                    ) : (
+                        // Fallback if no timeline items exist
+                        <>
+                            <GlassCard className="p-6 border-l-4 border-l-[#D0202F]">
+                                <h4 className="text-white font-bold text-lg">No Experience Listed</h4>
+                                <p className="text-[#D0202F] text-xs font-bold uppercase tracking-widest mb-2">Add via Admin</p>
+                                <p className="text-white/50 text-sm">Please add timeline entries in the admin dashboard to populate this section.</p>
+                            </GlassCard>
+                            <GlassCard className="p-6 border-l-4 border-l-white/20">
+                                <h4 className="text-white font-bold text-lg">Ready to Start</h4>
+                                <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-2">Available for Hire</p>
+                                <p className="text-white/50 text-sm">I am currently open to new opportunities and collaborations.</p>
+                            </GlassCard>
+                        </>
+                    )}
                 </div>
             </div>
 
