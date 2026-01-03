@@ -29,7 +29,7 @@ const AboutSection = ({ profile, timeline, skills }: AboutSectionProps) => (
                         {profile?.about ? profile.about.split('.')[0] + '.' : "A dedicated web developer currently pursuing my degree in Computer Science."}
                     </p>
                     <p className="text-white/70 text-lg leading-relaxed font-light">
-                        {profile?.about || "I don't just write code; I engineer solutions. I am passionate about learning and applying new technologies to solve real-world problems."}
+                        {profile?.about ? profile.about.substring(profile.about.indexOf('.') + 1).trim() : "I don't just write code; I engineer solutions. I am passionate about learning and applying new technologies to solve real-world problems."}
                     </p>
                     <div className="mt-8 flex gap-4">
                         <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white/40">
