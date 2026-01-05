@@ -39,7 +39,7 @@ export default function HomeClient({ profile, projects, services, timeline, skil
             </div>
 
             <div className="relative z-10 container mx-auto px-6 py-12 md:py-20">
-                {activeTab === 'home' && <HomeSection setActiveTab={setActiveTab} profile={profile} stats={stats} projects={projects} />}
+                {activeTab === 'home' && <HomeSection setActiveTab={setActiveTab} profile={profile} stats={stats} projects={projects} services={services} />}
                 {activeTab === 'about' && <AboutSection profile={profile} timeline={timeline} skills={skills} />}
                 {activeTab === 'projects' && <ProjectsSection projects={projects} />}
                 {activeTab === 'services' && <ServicesSection services={services} />}

@@ -100,7 +100,7 @@ const ContactSection = ({ profile }: ContactSectionProps) => {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full py-5 rounded-xl bg-[#D0202F] text-white font-bold uppercase tracking-widest hover:bg-red-600 transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-red-900/40 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full py-3 md:py-5 rounded-xl bg-[#D0202F] text-white font-bold uppercase tracking-widest hover:bg-red-600 transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-red-900/40 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {loading ? <Loader2 className="animate-spin" /> : <>Send Message <Send size={18} /></>}
                             </button>

@@ -54,19 +54,10 @@ const AboutSection = ({ profile, timeline, skills }: AboutSectionProps) => (
                             </GlassCard>
                         ))
                     ) : (
-                        // Fallback if no timeline items exist
-                        <>
-                            <GlassCard className="p-6 border-l-4 border-l-[#D0202F]">
-                                <h4 className="text-white font-bold text-lg">No Experience Listed</h4>
-                                <p className="text-[#D0202F] text-xs font-bold uppercase tracking-widest mb-2">Add via Admin</p>
-                                <p className="text-white/50 text-sm">Please add timeline entries in the admin dashboard to populate this section.</p>
-                            </GlassCard>
-                            <GlassCard className="p-6 border-l-4 border-l-white/20">
-                                <h4 className="text-white font-bold text-lg">Ready to Start</h4>
-                                <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-2">Available for Hire</p>
-                                <p className="text-white/50 text-sm">I am currently open to new opportunities and collaborations.</p>
-                            </GlassCard>
-                        </>
+                        <div className="col-span-full py-8 text-center border border-white/5 rounded-xl bg-white/5">
+                            <p className="text-white/40 text-sm">No timeline entries yet.</p>
+                        </div>
+
                     )}
                 </div>
             </div>
@@ -152,12 +143,11 @@ const AboutSection = ({ profile, timeline, skills }: AboutSectionProps) => (
                         {skills && skills.length > 0 ? skills.map((skill, index) => (
                             <SkillPlanet key={skill.id} label={skill.name} percent={skill.percentage} delay={`${index * 0.5}s`} />
                         )) : (
-                            <>
-                                <SkillPlanet label="HTML/CSS" percent={90} delay="0s" />
-                                <SkillPlanet label="React" percent={85} delay="1s" />
-                                <SkillPlanet label="Node.js" percent={75} delay="2s" />
-                            </>
+                            <div className="col-span-full text-center text-white/40 p-4">
+                                No skills added yet.
+                            </div>
                         )}
+
                     </div>
                 </div>
             </GlassCard>

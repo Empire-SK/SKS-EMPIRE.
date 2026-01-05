@@ -12,6 +12,7 @@ interface Service {
     title: string;
     description: string;
     icon: string;
+    featured: boolean;
     order: number;
 }
 
@@ -102,6 +103,11 @@ export default function ServicesPage() {
                                 <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-6 text-white group-hover:text-[#D0202F] transition-colors">
                                     <IconComponent size={24} />
                                 </div>
+                                {service.featured && (
+                                    <span className="absolute top-4 right-4 px-2 py-1 bg-[#D0202F]/20 border border-[#D0202F]/30 text-[#D0202F] text-[10px] font-bold uppercase tracking-widest rounded-full">
+                                        Featured
+                                    </span>
+                                )}
                                 <h3 className="text-xl font-bold text-white mb-4">{service.title}</h3>
                                 <p className="text-white/50 text-sm mb-6 leading-relaxed">{service.description}</p>
 
@@ -169,6 +175,19 @@ export default function ServicesPage() {
                                     rows={4}
                                     required
                                 />
+
+                                <div className="flex items-center gap-3 p-4 bg-white/5 rounded-xl border border-white/10">
+                                    <input
+                                        type="checkbox"
+                                        id="featured"
+                                        checked={currentService.featured || false}
+                                        onChange={(e) => setCurrentService({ ...currentService, featured: e.target.checked })}
+                                        className="w-5 h-5 rounded border-white/20 bg-black/40 text-[#D0202F] focus:ring-[#D0202F] focus:ring-offset-0"
+                                    />
+                                    <label htmlFor="featured" className="text-sm font-bold text-white cursor-pointer select-none">
+                                        Feature on Home Screen <span className="text-white/40 block text-xs font-normal normal-case">Display this service in the featured section (Max 3 recommended)</span>
+                                    </label>
+                                </div>
                             </form>
                         </div>
 

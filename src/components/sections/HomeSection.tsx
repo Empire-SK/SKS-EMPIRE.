@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, User, Cpu, Globe, Layers, Smartphone, MousePointer2, Linkedin, Github } from 'lucide-react';
+import { ArrowRight, User, Cpu, Globe, Layers, Smartphone, MousePointer2, Linkedin, Github, Code, Database } from 'lucide-react';
 import GlassCard from '../ui/GlassCard';
 import ProjectCard from '../ui/ProjectCard';
 
@@ -8,10 +8,16 @@ interface HomeSectionProps {
     profile: any;
     stats: { projectCount: number };
     projects: any[];
+    services: any[];
 }
 
-const HomeSection = ({ setActiveTab, profile, stats, projects }: HomeSectionProps) => {
+const ICON_MAP: any = {
+    Globe, Layers, Cpu, Smartphone, Code, Database
+};
+
+const HomeSection = ({ setActiveTab, profile, stats, projects, services }: HomeSectionProps) => {
     const featuredProjects = projects?.filter((p: any) => p.featured) || [];
+    const featuredServices = services?.filter((s: any) => s.featured).slice(0, 3) || [];
 
     return (
         <div className="relative pb-32 animate-fade-in-up flex flex-col gap-6 max-w-7xl mx-auto px-6">
@@ -35,13 +41,13 @@ const HomeSection = ({ setActiveTab, profile, stats, projects }: HomeSectionProp
                         {profile?.bio || "I'm Sabin K Santhosh. A creative developer focused on crafting immersive web experiences that leave a lasting impact."}
                     </p>
                     <div className="flex gap-4">
-                        <button onClick={() => setActiveTab('projects')} className="group relative px-8 py-4 bg-white text-black font-bold uppercase tracking-wider overflow-hidden rounded-xl">
+                        <button onClick={() => setActiveTab('projects')} className="group relative px-4 py-2 md:px-8 md:py-4 bg-white text-black font-bold uppercase tracking-wider overflow-hidden rounded-lg md:rounded-xl text-sm md:text-base">
                             <div className="absolute inset-0 w-full h-full bg-[#D0202F] translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300 ease-out z-0"></div>
                             <span className="relative z-10 group-hover:text-white transition-colors duration-300 flex items-center gap-2">
-                                View Work <ArrowRight size={18} />
+                                View Work <ArrowRight size={16} className="md:w-[18px] md:h-[18px]" />
                             </span>
                         </button>
-                        <button onClick={() => setActiveTab('contact')} className="px-8 py-4 border border-white/20 text-white font-bold uppercase tracking-wider hover:bg-white/10 rounded-xl transition-all">
+                        <button onClick={() => setActiveTab('contact')} className="px-4 py-2 md:px-8 md:py-4 border border-white/20 text-white font-bold uppercase tracking-wider hover:bg-white/10 rounded-lg md:rounded-xl transition-all text-sm md:text-base">
                             Contact
                         </button>
                     </div>
@@ -97,7 +103,7 @@ const HomeSection = ({ setActiveTab, profile, stats, projects }: HomeSectionProp
                         <ArrowRight size={16} className="text-white/0 group-hover:text-white -translate-x-4 group-hover:translate-x-0 transition-all" />
                     </div>
                     <div>
-                        <h3 className="text-3xl font-bold text-white">{stats?.projectCount || '20'}+</h3>
+                        <h3 className="text-3xl font-bold text-white">{stats?.projectCount || '0'}+</h3>
                         <p className="text-xs uppercase tracking-widest text-white/50 group-hover:text-white/80">Projects</p>
                     </div>
                 </GlassCard>
@@ -123,6 +129,26 @@ const HomeSection = ({ setActiveTab, profile, stats, projects }: HomeSectionProp
                 </a>
             </div>
 
+            {/* Featured Services */}
+            {featuredServices.length > 0 && (
+                <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {featuredServices.map((service: any) => {
+                        const Icon = ICON_MAP[service.icon] || Globe;
+                        return (
+                            <GlassCard key={service.id} className="p-6 flex flex-col justify-between group hover:bg-white/5 transition-all border border-white/5 hover:border-[#D0202F]/30">
+                                <div className="mb-4 text-[#D0202F]">
+                                    <Icon size={32} strokeWidth={1.5} />
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-bold text-white mb-2">{service.title}</h3>
+                                    <p className="text-white/50 text-xs leading-relaxed line-clamp-2">{service.description}</p>
+                                </div>
+                            </GlassCard>
+                        )
+                    })}
+                </div>
+            )}
+
             {/* Selected Projects Preview */}
             <div className="mt-32">
                 <div className="flex items-center justify-between mb-12">
@@ -144,36 +170,25 @@ const HomeSection = ({ setActiveTab, profile, stats, projects }: HomeSectionProp
                             />
                         ))
                     ) : (
-                        <>
-                            <ProjectCard
-                                title="E-Commerce Dashboard"
-                                category="Web Application"
-                                imageColor="bg-zinc-800"
-                                description="A comprehensive dashboard for managing online stores, featuring real-time analytics and inventory management."
-                            />
-                            <ProjectCard
-                                title="AI Chat Interface"
-                                category="AI / Machine Learning"
-                                imageColor="bg-[#D0202F]"
-                                description="Modern chat UI integrated with OpenAI API, featuring streaming responses and code syntax highlighting."
-                            />
-                        </>
+                        <div className="col-span-full py-12 text-center border border-white/5 rounded-2xl bg-white/5">
+                            <p className="text-white/40">No featured projects yet.</p>
+                        </div>
                     )}
                 </div>
             </div>
 
             {/* CTA Section */}
             <div className="mt-32 mb-12">
-                <GlassCard className="p-12 md:p-24 text-center relative overflow-hidden border-[#D0202F]/30">
+                <GlassCard className="p-6 md:p-24 text-center relative overflow-hidden border-[#D0202F]/30">
                     <div className="absolute inset-0 bg-gradient-to-b from-[#D0202F]/10 to-transparent"></div>
                     <div className="relative z-10 flex flex-col items-center">
-                        <h2 className="text-5xl md:text-7xl font-black text-white mb-8 uppercase tracking-tighter">
+                        <h2 className="text-4xl md:text-7xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter">
                             Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D0202F] to-red-500">Build</span> It.
                         </h2>
-                        <p className="text-white/60 text-xl max-w-2xl mb-12 leading-relaxed">
+                        <p className="text-white/60 text-base md:text-xl max-w-2xl mb-8 md:mb-12 leading-relaxed">
                             Have a vision? I have the tools. Let's collaborate and turn your ideas into a digital reality.
                         </p>
-                        <button onClick={() => setActiveTab('contact')} className="px-10 py-5 bg-[#D0202F] text-white font-bold uppercase tracking-widest rounded-full hover:bg-red-600 transition-all shadow-[0_0_30px_rgba(208,32,47,0.3)] hover:shadow-[0_0_50px_rgba(208,32,47,0.5)] transform hover:-translate-y-1">
+                        <button onClick={() => setActiveTab('contact')} className="px-5 py-3 md:px-10 md:py-5 bg-[#D0202F] text-white font-bold uppercase tracking-widest rounded-lg md:rounded-full hover:bg-red-600 transition-all shadow-[0_0_30px_rgba(208,32,47,0.3)] hover:shadow-[0_0_50px_rgba(208,32,47,0.5)] transform hover:-translate-y-1 text-sm md:text-base">
                             Start a Project
                         </button>
                     </div>

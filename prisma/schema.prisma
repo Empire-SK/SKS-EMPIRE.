@@ -54,6 +54,7 @@ model Service {
   title       String
   description String   @db.Text
   icon        String   // Store lucide icon name
+  featured    Boolean  @default(false)
   order       Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

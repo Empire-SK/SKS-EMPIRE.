@@ -31,6 +31,7 @@ export async function POST(request: Request) {
         title: body.title,
         description: body.description,
         icon: body.icon,
+        featured: body.featured || false,
         order: body.order || 0,
       },
     });
