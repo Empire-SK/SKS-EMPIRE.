@@ -65,28 +65,32 @@ export default function ProfilePage() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files?.[0]) return;
-        setUploading(true);
 
-        const uploadData = new FormData();
-        uploadData.append('file', e.target.files[0]);
+        const file = e.target.files[0];
 
-        try {
-            const res = await fetch('/api/upload', {
-                method: 'POST',
-                body: uploadData,
-            });
-            const data = await res.json();
-            if (data.url) {
-                setFormData(prev => ({ ...prev, imageUrl: data.url }));
-            }
-        } catch (error) {
-            console.error('Upload failed', error);
-            setMessage('Image upload failed');
-        } finally {
-            setUploading(false);
+        // Optional: Check file size (e.g. 2MB limit)
+        if (file.size > 2 * 1024 * 1024) {
+            setMessage('File size too large (max 2MB)');
+            return;
         }
+
+        setUploading(true);
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            setFormData(prev => ({ ...prev, imageUrl: reader.result as string }));
+            setUploading(false);
+        };
+
+        reader.onerror = () => {
+            console.error('Error reading file');
+            setMessage('Failed to read file');
+            setUploading(false);
+        };
+
+        reader.readAsDataURL(file);
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
