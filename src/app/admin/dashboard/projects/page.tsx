@@ -73,27 +73,31 @@ export default function ProjectsPage() {
         }
     };
 
-    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files?.[0]) return;
-        setUploading(true);
 
-        const formData = new FormData();
-        formData.append('file', e.target.files[0]);
+        const file = e.target.files[0];
 
-        try {
-            const res = await fetch('/api/upload', {
-                method: 'POST',
-                body: formData,
-            });
-            const data = await res.json();
-            if (data.url) {
-                setCurrentProject({ ...currentProject, imageUrl: data.url });
-            }
-        } catch (error) {
-            console.error('Upload failed', error);
-        } finally {
-            setUploading(false);
+        // Optional: Check file size (e.g. 2MB limit)
+        if (file.size > 2 * 1024 * 1024) {
+            alert('File size too large (max 2MB)');
+            return;
         }
+
+        setUploading(true);
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            setCurrentProject(prev => ({ ...prev, imageUrl: reader.result as string }));
+            setUploading(false);
+        };
+
+        reader.onerror = () => {
+            console.error('Error reading file');
+            setUploading(false);
+        };
+
+        reader.readAsDataURL(file);
     };
 
     if (loading) return <AdminLoader message="Loading projects..." />;
