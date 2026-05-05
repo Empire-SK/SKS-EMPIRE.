@@ -96,7 +96,8 @@ const AboutSection = ({ profile, timeline, skills }: AboutSectionProps) => (
                         <div key={item.id} className="relative pl-8 pb-8 border-l border-white/10 last:pb-0">
                             <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-[#D0202F]"></div>
                             <span className="text-xs font-bold text-[#D0202F] mb-1 block">{item.year}</span>
-                            <h4 className="text-white font-bold mb-2">{item.title}</h4>
+                            <h4 className="text-white font-bold mb-1">{item.title}</h4>
+                            {item.role && <h5 className="text-white/80 font-medium text-sm mb-2">{item.role}</h5>}
                             <p className="text-white/50 text-sm">{item.description}</p>
                         </div>
                     )) : (
