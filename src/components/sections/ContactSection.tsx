@@ -116,7 +116,7 @@ const ContactSection = ({ profile }: ContactSectionProps) => {
                         <div className="flex flex-col justify-center space-y-10 md:pl-12 md:border-l border-white/10">
                             <div>
                                 <h4 className="text-xs font-bold text-white/30 uppercase tracking-widest mb-2">Direct Contact</h4>
-                                <p className="text-white text-2xl font-bold hover:text-[#D0202F] transition-colors cursor-pointer break-all">
+                                <p className="text-white text-lg md:text-xl font-bold hover:text-[#D0202F] transition-colors cursor-pointer break-all">
                                     {profile?.email || "sabinksanthosh6@gmail.com"}
                                 </p>
                                 <p className="text-white/60 text-lg mt-1">{profile?.phone || "+91 6282075284"}</p>
