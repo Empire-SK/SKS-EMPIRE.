@@ -38,7 +38,7 @@ export default function HomeClient({ profile, projects, services, timeline, skil
                 <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
             </div>
 
-            <div className="relative z-10 container mx-auto px-6 py-12 md:py-20">
+            <div className="relative z-10 container mx-auto px-6 pt-12 pb-4 md:pt-20 md:pb-4">
                 {activeTab === 'home' && <HomeSection setActiveTab={setActiveTab} profile={profile} stats={stats} projects={projects} services={services} />}
                 {activeTab === 'about' && <AboutSection profile={profile} timeline={timeline} skills={skills} />}
                 {activeTab === 'projects' && <ProjectsSection projects={projects} />}
@@ -47,7 +47,7 @@ export default function HomeClient({ profile, projects, services, timeline, skil
             </div>
 
             {/* Copyright Footer - positioned above navbar */}
-            <div className="relative z-20 pb-24 pt-8">
+            <div className="relative z-20 pb-24 pt-2">
                 <p className="text-center text-white/30 text-sm">
                     © 2025 SABIN K SANTHOSH.
                 </p>

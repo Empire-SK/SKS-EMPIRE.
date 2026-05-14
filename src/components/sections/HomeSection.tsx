@@ -20,19 +20,19 @@ const HomeSection = ({ setActiveTab, profile, stats, projects, services }: HomeS
     const featuredServices = services?.filter((s: any) => s.featured).slice(0, 3) || [];
 
     return (
-        <div className="relative pb-32 animate-fade-in-up flex flex-col gap-6 max-w-7xl mx-auto px-6">
+        <div className="relative pb-0 animate-fade-in-up flex flex-col gap-6 max-w-7xl mx-auto px-6">
             {/* Background Text */}
-            <div className="absolute top-[-5%] left-[-5%] font-black text-[8rem] md:text-[12rem] text-white/5 -z-10 select-none overflow-hidden leading-none pointer-events-none">
+            <div className="absolute top-[-5%] left-[-5%] font-black text-[5rem] sm:text-[7rem] md:text-[10rem] lg:text-[12rem] text-white/5 -z-10 select-none overflow-hidden leading-none pointer-events-none">
                 DEV
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 min-h-[80vh] items-center">
-                <div className="col-span-1 md:col-span-7 flex flex-col justify-center relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-[80vh] items-center">
+                <div className="col-span-1 lg:col-span-7 flex flex-col justify-center relative z-10">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D0202F]/10 border border-[#D0202F]/20 text-[#D0202F] text-xs font-bold tracking-widest uppercase mb-6 w-fit animate-pulse">
                         <span className="w-2 h-2 rounded-full bg-[#D0202F]"></span>
                         Online
                     </div>
-                    <h1 className="text-6xl md:text-8xl font-black text-white mb-6 leading-[0.9] tracking-tighter">
+                    <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-[0.9] tracking-tighter">
                         BUILDING <br />
                         <span className="text-[#D0202F]">DIGITAL</span> <br />
                         EMPIRES.
@@ -53,7 +53,7 @@ const HomeSection = ({ setActiveTab, profile, stats, projects, services }: HomeS
                     </div>
                 </div>
 
-                <div className="col-span-1 md:col-span-5 relative h-[600px] hidden md:block perspective-1000">
+                <div className="col-span-1 lg:col-span-5 relative h-[600px] hidden lg:block perspective-1000">
                     {/* Code Card - Top Right */}
                     <GlassCard className="absolute top-0 right-0 w-72 h-auto z-20 animate-float-slow border border-white/10 bg-[#0a0a0a] shadow-2xl">
                         <div className="p-4 border-b border-white/5 flex gap-2">
@@ -150,7 +150,7 @@ const HomeSection = ({ setActiveTab, profile, stats, projects, services }: HomeS
             )}
 
             {/* Selected Projects Preview */}
-            <div className="mt-32">
+            <div className="mt-16">
                 <div className="flex items-center justify-between mb-12">
                     <h2 className="text-4xl font-black text-white uppercase">Selected <span className="text-[#D0202F]">Works</span></h2>
                     <button onClick={() => setActiveTab('projects')} className="text-white/50 hover:text-white flex items-center gap-2 transition-colors">
@@ -178,11 +178,11 @@ const HomeSection = ({ setActiveTab, profile, stats, projects, services }: HomeS
             </div>
 
             {/* CTA Section */}
-            <div className="mt-32 mb-12">
+            <div className="mt-16 mb-0">
                 <GlassCard className="p-6 md:p-24 text-center relative overflow-hidden border-[#D0202F]/30">
                     <div className="absolute inset-0 bg-gradient-to-b from-[#D0202F]/10 to-transparent"></div>
                     <div className="relative z-10 flex flex-col items-center">
-                        <h2 className="text-4xl md:text-7xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter">
+                        <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter">
                             Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D0202F] to-red-500">Build</span> It.
                         </h2>
                         <p className="text-white/60 text-base md:text-xl max-w-2xl mb-8 md:mb-12 leading-relaxed">

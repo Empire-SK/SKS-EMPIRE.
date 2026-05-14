@@ -9,16 +9,16 @@ interface ProjectsSectionProps {
 
 const ProjectsSection = ({ projects }: ProjectsSectionProps) => (
     <div className="animate-fade-in-up pb-32 relative max-w-7xl mx-auto px-6">
-        <div className="absolute top-[-2%] left-[-2%] font-black text-[12rem] md:text-[18rem] text-white/5 -z-10 select-none overflow-hidden leading-none pointer-events-none">
+        <div className="absolute top-[-2%] left-[-2%] font-black text-[6rem] sm:text-[9rem] md:text-[12rem] lg:text-[18rem] text-white/5 -z-10 select-none overflow-hidden leading-none pointer-events-none">
             WORK
         </div>
 
         <div className="mb-12 pt-8">
             <div className="flex items-center gap-4 mb-4">
                 <div className="h-[1px] w-12 bg-[#D0202F]"></div>
-                <span className="text-[#D0202F] font-bold uppercase tracking-widest text-sm">Selected Projects</span>
+                <span className="text-[#D0202F] font-bold uppercase tracking-widest text-xs">Selected Projects</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-white max-w-2xl leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white max-w-2xl leading-tight">
                 DIGITAL SOLUTIONS <br /> FOR THE MODERN WEB.
             </h2>
         </div>

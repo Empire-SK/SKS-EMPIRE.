@@ -32,12 +32,12 @@ const ProjectCard = ({ title, category, imageColor, description, imageUrl }: Pro
             </div>
         </div>
 
-        <div className="p-8 flex flex-col flex-grow relative">
-            <div className="flex justify-between items-start mb-4">
-                <h3 className="text-2xl font-bold text-white group-hover:text-[#D0202F] transition-colors duration-300">{title}</h3>
-                <ExternalLink size={20} className="text-white/20 group-hover:text-white transition-colors duration-300" />
+        <div className="p-6 md:p-8 flex flex-col flex-grow relative">
+            <div className="flex justify-between items-start mb-3">
+                <h3 className="text-xl font-bold text-white group-hover:text-[#D0202F] transition-colors duration-300 pr-2">{title}</h3>
+                <ExternalLink size={18} className="text-white/20 group-hover:text-white transition-colors duration-300 shrink-0" />
             </div>
-            <p className="text-white/40 text-sm leading-relaxed mb-6 flex-grow font-light">{description}</p>
+            <p className="text-white/40 text-xs md:text-sm leading-relaxed mb-4 flex-grow font-light">{description}</p>
 
             {/* Dots */}
             <div className="flex gap-2 mt-auto opacity-40 group-hover:opacity-100 transition-opacity">

@@ -12,7 +12,7 @@ interface AboutSectionProps {
 const AboutSection = ({ profile, timeline, skills }: AboutSectionProps) => (
     <div className="animate-fade-in-up pb-32 relative max-w-7xl mx-auto px-6">
         {/* Background Typography */}
-        <div className="absolute top-[-2%] right-[-5%] font-black text-[12rem] md:text-[18rem] text-white/5 -z-10 select-none overflow-hidden leading-none pointer-events-none text-right">
+        <div className="absolute top-[-2%] right-[-5%] font-black text-[6rem] sm:text-[9rem] md:text-[12rem] lg:text-[18rem] text-white/5 -z-10 select-none overflow-hidden leading-none pointer-events-none text-right">
             ABOUT
         </div>
 
