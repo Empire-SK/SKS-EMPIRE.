@@ -1,5 +1,5 @@
 import React from 'react';
-import { Globe, Briefcase, User, Sparkles } from 'lucide-react';
+import { Globe, Briefcase, User, Sparkles, Download } from 'lucide-react';
 import GlassCard from '../ui/GlassCard';
 import SkillPlanet from '../ui/SkillPlanet';
 
@@ -31,13 +31,18 @@ const AboutSection = ({ profile, timeline, skills }: AboutSectionProps) => (
                     <p className="text-white/70 text-lg leading-relaxed font-light">
                         {profile?.about ? profile.about.substring(profile.about.indexOf('.') + 1).trim() : "I don't just write code; I engineer solutions. I am passionate about learning and applying new technologies to solve real-world problems."}
                     </p>
-                    <div className="mt-8 flex gap-4">
-                        <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white/40">
+                    <div className="mt-8 flex flex-wrap gap-4 items-center">
+                        <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white/40 mr-2">
                             <Globe size={16} /> {profile?.location || "Kerala, IN"}
                         </div>
-                        <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white/40">
+                        <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white/40 mr-2">
                             <Briefcase size={16} /> Open for Hire
                         </div>
+                        {profile?.resumeLink && (
+                            <a href={profile.resumeLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#D0202F] hover:text-white transition-colors">
+                                <Download size={16} /> Resume
+                            </a>
+                        )}
                     </div>
                 </GlassCard>
 

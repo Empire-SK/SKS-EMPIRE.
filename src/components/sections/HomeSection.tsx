@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, User, Cpu, Globe, Layers, Smartphone, MousePointer2, Linkedin, Github, Code, Database } from 'lucide-react';
+import { ArrowRight, User, Cpu, Globe, Layers, Smartphone, MousePointer2, Linkedin, Github, Code, Database, Download } from 'lucide-react';
 import GlassCard from '../ui/GlassCard';
 import ProjectCard from '../ui/ProjectCard';
 
@@ -40,13 +40,18 @@ const HomeSection = ({ setActiveTab, profile, stats, projects, services }: HomeS
                     <p className="text-lg text-white/60 mb-8 max-w-lg leading-relaxed border-l-2 border-[#D0202F] pl-6">
                         {profile?.bio || "I'm Sabin K Santhosh. A creative developer focused on crafting immersive web experiences that leave a lasting impact."}
                     </p>
-                    <div className="flex gap-4">
+                    <div className="flex flex-wrap gap-4">
                         <button onClick={() => setActiveTab('projects')} className="group relative px-4 py-2 md:px-8 md:py-4 bg-white text-black font-bold uppercase tracking-wider overflow-hidden rounded-lg md:rounded-xl text-sm md:text-base">
                             <div className="absolute inset-0 w-full h-full bg-[#D0202F] translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300 ease-out z-0"></div>
                             <span className="relative z-10 group-hover:text-white transition-colors duration-300 flex items-center gap-2">
                                 View Work <ArrowRight size={16} className="md:w-[18px] md:h-[18px]" />
                             </span>
                         </button>
+                        {profile?.resumeLink && (
+                            <a href={profile.resumeLink} target="_blank" rel="noopener noreferrer" className="px-4 py-2 md:px-8 md:py-4 border border-[#D0202F] text-[#D0202F] font-bold uppercase tracking-wider hover:bg-[#D0202F] hover:text-white rounded-lg md:rounded-xl transition-all text-sm md:text-base flex items-center gap-2">
+                                Resume <Download size={16} className="md:w-[18px] md:h-[18px]" />
+                            </a>
+                        )}
                         <button onClick={() => setActiveTab('contact')} className="px-4 py-2 md:px-8 md:py-4 border border-white/20 text-white font-bold uppercase tracking-wider hover:bg-white/10 rounded-lg md:rounded-xl transition-all text-sm md:text-base">
                             Contact
                         </button>
