@@ -93,6 +93,32 @@ export default function ProfilePage() {
         reader.readAsDataURL(file);
     };
 
+    const handleResumeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files?.[0]) return;
+
+        const file = e.target.files[0];
+
+        if (file.size > 5 * 1024 * 1024) {
+            setMessage('Resume size too large (max 5MB)');
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            setFormData(prev => ({ ...prev, resumeLink: reader.result as string }));
+            setMessage('Resume PDF processed! Click Save Changes to upload.');
+            setTimeout(() => setMessage(''), 3000);
+        };
+
+        reader.onerror = () => {
+            console.error('Error reading file');
+            setMessage('Failed to read resume file');
+        };
+
+        reader.readAsDataURL(file);
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSaving(true);
@@ -242,12 +268,34 @@ export default function ProfilePage() {
                             value={formData.linkedin || ''}
                             onChange={handleChange}
                         />
-                        <AdminInput
-                            label="Resume Link"
-                            name="resumeLink"
-                            value={formData.resumeLink || ''}
-                            onChange={handleChange}
-                        />
+                        <div>
+                            <label className="block text-xs font-bold text-white/60 uppercase tracking-widest mb-2">Resume Link or PDF</label>
+                            <div className="flex flex-col gap-3">
+                                <input
+                                    type="text"
+                                    name="resumeLink"
+                                    value={formData.resumeLink || ''}
+                                    onChange={handleChange}
+                                    className="w-full bg-[#111] border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-[#D0202F] transition-colors"
+                                    placeholder="Paste URL or upload PDF below"
+                                />
+                                <div>
+                                    <input
+                                        type="file"
+                                        accept=".pdf,application/pdf"
+                                        onChange={handleResumeUpload}
+                                        className="hidden"
+                                        id="resume-upload"
+                                    />
+                                    <label
+                                        htmlFor="resume-upload"
+                                        className="cursor-pointer bg-white/5 hover:bg-white/10 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-all border border-white/10 w-fit inline-flex"
+                                    >
+                                        <Upload size={16} /> Upload PDF (Max 5MB)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

@@ -48,7 +48,7 @@ const HomeSection = ({ setActiveTab, profile, stats, projects, services }: HomeS
                             </span>
                         </button>
                         {profile?.resumeLink && (
-                            <a href={profile.resumeLink} target="_blank" rel="noopener noreferrer" className="px-4 py-2 md:px-8 md:py-4 border border-[#D0202F] text-[#D0202F] font-bold uppercase tracking-wider hover:bg-[#D0202F] hover:text-white rounded-lg md:rounded-xl transition-all text-sm md:text-base flex items-center gap-2">
+                            <a href={profile.resumeLink} download="Resume.pdf" target="_blank" rel="noopener noreferrer" className="px-4 py-2 md:px-8 md:py-4 border border-[#D0202F] text-[#D0202F] font-bold uppercase tracking-wider hover:bg-[#D0202F] hover:text-white rounded-lg md:rounded-xl transition-all text-sm md:text-base flex items-center gap-2">
                                 Resume <Download size={16} className="md:w-[18px] md:h-[18px]" />
                             </a>
                         )}

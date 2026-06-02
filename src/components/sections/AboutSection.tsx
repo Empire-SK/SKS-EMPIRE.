@@ -39,7 +39,7 @@ const AboutSection = ({ profile, timeline, skills }: AboutSectionProps) => (
                             <Briefcase size={16} /> Open for Hire
                         </div>
                         {profile?.resumeLink && (
-                            <a href={profile.resumeLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#D0202F] hover:text-white transition-colors">
+                            <a href={profile.resumeLink} download="Resume.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#D0202F] hover:text-white transition-colors">
                                 <Download size={16} /> Resume
                             </a>
                         )}
