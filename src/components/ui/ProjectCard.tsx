@@ -24,7 +24,7 @@ const ProjectCard = ({ title, category, imageColor, description, imageUrl, githu
     return (
         <GlassCard onClick={handleCardClick} className="group h-full flex flex-col p-0 cursor-pointer border border-white/5 hover:border-[#D0202F]/50 bg-[#0a0a0a] overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_rgba(208,32,47,0.1)]">
         <div
-            className={`h-64 w-full ${!imageUrl ? 'bg-[#111]' : 'bg-zinc-900'} relative overflow-hidden shrink-0 bg-cover bg-center`}
+            className={`h-48 md:h-64 w-full ${!imageUrl ? 'bg-[#111]' : 'bg-zinc-900'} relative overflow-hidden shrink-0 bg-cover bg-top`}
             style={imageUrl ? { backgroundImage: `url('${imageUrl}')` } : {}}
         >
             {/* Dark Overlay */}
