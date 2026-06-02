@@ -31,6 +31,8 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => (
                     category={project.category}
                     imageColor={project.imageColor}
                     imageUrl={project.imageUrl}
+                    githubUrl={project.githubUrl}
+                    liveUrl={project.liveUrl}
                     description={project.description}
                 />
             )) : (

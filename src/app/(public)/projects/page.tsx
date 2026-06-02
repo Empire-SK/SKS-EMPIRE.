@@ -16,9 +16,9 @@ async function getProjects() {
     } catch (error) {
         console.error('Failed to fetch projects, using mock fallback:', error);
         return [
-            { id: '1', title: 'E-Commerce Dashboard', category: 'Web Application', description: 'A comprehensive dashboard for managing online stores, featuring real-time analytics and inventory management.', imageUrl: '', imageColor: 'bg-zinc-900' },
-            { id: '2', title: 'AI Chat Interface', category: 'AI / Machine Learning', description: 'Modern chat UI integrated with OpenAI API, featuring streaming responses and code syntax highlighting.', imageUrl: '', imageColor: 'bg-[#D0202F]/10' },
-            { id: '3', title: 'Portfolio Platform', category: 'Web Development', description: 'A premium portfolio website built with Next.js 14 and Tailwind CSS.', imageUrl: '', imageColor: 'bg-blue-900/10' },
+            { id: '1', title: 'E-Commerce Dashboard', category: 'Web Application', description: 'A comprehensive dashboard for managing online stores, featuring real-time analytics and inventory management.', imageUrl: '', imageColor: 'bg-zinc-900', githubUrl: null, liveUrl: null },
+            { id: '2', title: 'AI Chat Interface', category: 'AI / Machine Learning', description: 'Modern chat UI integrated with OpenAI API, featuring streaming responses and code syntax highlighting.', imageUrl: '', imageColor: 'bg-[#D0202F]/10', githubUrl: null, liveUrl: null },
+            { id: '3', title: 'Portfolio Platform', category: 'Web Development', description: 'A premium portfolio website built with Next.js 14 and Tailwind CSS.', imageUrl: '', imageColor: 'bg-blue-900/10', githubUrl: null, liveUrl: null },
         ];
     }
 }
@@ -56,6 +56,8 @@ export default async function ProjectsPage() {
                                 category={project.category}
                                 imageColor={project.imageColor || 'bg-zinc-900'}
                                 imageUrl={project.imageUrl || ''}
+                                githubUrl={project.githubUrl}
+                                liveUrl={project.liveUrl}
                                 description={project.description}
                             />
                         </div>

@@ -4,7 +4,7 @@ interface GlassCardProps {
     children: React.ReactNode;
     className?: string;
     hoverEffect?: boolean;
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 const GlassCard = ({ children, className = "", hoverEffect = true, onClick }: GlassCardProps) => (
