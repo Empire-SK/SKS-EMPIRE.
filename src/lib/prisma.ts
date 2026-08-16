@@ -12,7 +12,15 @@ if (typeof window === 'undefined') {
   neonConfig.webSocketConstructor = CustomWebSocket;
 }
 
-const connectionString = `${process.env.DATABASE_URL}`;
+const connectionString = process.env.DATABASE_URL || '';
+
+if (!connectionString) {
+  // Clearer than the cryptic Neon "Invalid URL" error thrown on every query when unset.
+  console.warn(
+    '[prisma] DATABASE_URL is not set — copy .env.example to .env and add your Neon connection string. ' +
+    'Pages will fall back to mock data until then.'
+  );
+}
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 

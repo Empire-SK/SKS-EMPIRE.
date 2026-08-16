@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { ArrowRight, User, Cpu, Globe, Layers, Smartphone, MousePointer2, Linkedin, Github, Code, Database, Download } from 'lucide-react';
 import GlassCard from '../ui/GlassCard';
 import ProjectCard from '../ui/ProjectCard';
@@ -80,7 +81,7 @@ const HomeSection = ({ setActiveTab, profile, stats, projects, services }: HomeS
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#D0202F] z-10 opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
                         <div className="w-full h-full bg-[#111] flex items-center justify-center relative">
                             {profile?.imageUrl ? (
-                                <img src={profile.imageUrl} alt="Profile" className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
+                                <Image src={profile.imageUrl} alt={`${profile?.name || 'Sabin K Santhosh'} — portrait`} fill sizes="320px" className="object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
                             ) : (
                                 <User size={120} className="text-white/10 relative z-0" />
                             )}

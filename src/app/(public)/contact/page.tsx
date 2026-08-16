@@ -1,7 +1,20 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import type { Metadata } from "next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, MapPin, Phone } from "lucide-react";
+import ContactForm from "@/components/shared/ContactForm";
+
+export const metadata: Metadata = {
+    title: "Contact",
+    description:
+        "Get in touch with Sabin K Santhosh for web development projects, collaborations, and freelance opportunities. Based in Kottayam, Kerala, India.",
+    alternates: { canonical: "/contact" },
+    openGraph: {
+        title: "Contact | Sabin K Santhosh",
+        description:
+            "Get in touch for web development projects and collaborations.",
+        url: "/contact",
+    },
+};
 
 export default function ContactPage() {
     return (
@@ -24,17 +37,17 @@ export default function ContactPage() {
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-6">
-                                <div className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50">
+                                <a href="mailto:sabinksanthosh6@gmail.com" className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors">
                                     <Mail className="h-6 w-6 text-primary" />
-                                    <span className="text-lg">hello@example.com</span>
-                                </div>
-                                <div className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50">
+                                    <span className="text-lg break-all">sabinksanthosh6@gmail.com</span>
+                                </a>
+                                <a href="tel:+916282075284" className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors">
                                     <Phone className="h-6 w-6 text-primary" />
-                                    <span className="text-lg">+1 (555) 000-0000</span>
-                                </div>
+                                    <span className="text-lg">+91 62820 75284</span>
+                                </a>
                                 <div className="flex items-center gap-4 p-4 rounded-lg bg-secondary/50">
                                     <MapPin className="h-6 w-6 text-primary" />
-                                    <span className="text-lg">San Francisco, CA</span>
+                                    <span className="text-lg">Kottayam, Kerala, India</span>
                                 </div>
                             </CardContent>
                         </Card>
@@ -48,28 +61,7 @@ export default function ContactPage() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <form className="space-y-4">
-                                <div className="grid gap-4 sm:grid-cols-2">
-                                    <div className="space-y-2">
-                                        <label htmlFor="name" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name</label>
-                                        <Input id="name" placeholder="John Doe" required className="bg-background/50" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label htmlFor="email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email</label>
-                                        <Input id="email" type="email" placeholder="john@example.com" required className="bg-background/50" />
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <label htmlFor="message" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Message</label>
-                                    <textarea
-                                        id="message"
-                                        className="flex min-h-[120px] w-full rounded-md border border-input bg-background/50 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                                        placeholder="Tell me about your project..."
-                                        required
-                                    />
-                                </div>
-                                <Button type="submit" className="w-full h-11 text-base">Send Message</Button>
-                            </form>
+                            <ContactForm />
                         </CardContent>
                     </Card>
                 </div>

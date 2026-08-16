@@ -4,8 +4,9 @@ import HomeClient from '@/components/home/HomeClient';
 
 import { Metadata } from 'next';
 
-// Force dynamic rendering since we are fetching data that might change
-export const dynamic = 'force-dynamic';
+// Revalidate at most once per minute (ISR) — fast cached responses,
+// while admin edits still surface within 60s. Falls back to mock data if DB is down.
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
     try {

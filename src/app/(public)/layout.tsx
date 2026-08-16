@@ -1,3 +1,5 @@
+import { Footer } from "@/components/shared/Footer";
+
 export default function PublicLayout({
     children,
 }: {
@@ -11,6 +13,8 @@ export default function PublicLayout({
             <main className="flex-1 relative z-10">
                 {children}
             </main>
+
+            <Footer />
         </div>
     );
 }

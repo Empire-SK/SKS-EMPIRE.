@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Layers, ExternalLink, Github, Globe } from 'lucide-react';
 import GlassCard from './GlassCard';

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { Globe, Briefcase, User, Sparkles, Download } from 'lucide-react';
 import GlassCard from '../ui/GlassCard';
 import SkillPlanet from '../ui/SkillPlanet';
@@ -73,7 +74,7 @@ const AboutSection = ({ profile, timeline, skills }: AboutSectionProps) => (
                 <GlassCard className="aspect-[4/5] relative group overflow-hidden bg-[#0a0a0a] border border-white/5">
                     <div className="absolute inset-0 flex items-center justify-center">
                         {profile?.imageUrl ? (
-                            <img src={profile.imageUrl} alt="Profile" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+                            <Image src={profile.imageUrl} alt={`${profile?.name || 'Sabin K Santhosh'} — portrait`} fill sizes="(max-width: 768px) 100vw, 400px" className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
                         ) : (
                             <User size={120} strokeWidth={1} className="text-white/10 group-hover:text-white/20 transition-all duration-500 transform group-hover:scale-105" />
                         )}

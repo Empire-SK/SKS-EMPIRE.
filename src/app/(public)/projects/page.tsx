@@ -1,11 +1,24 @@
 import React from 'react';
+import { Metadata } from 'next';
 import { prisma } from '@/lib/prisma';
 import ProjectCard from '@/components/ui/ProjectCard';
 import { Github } from 'lucide-react';
 import GlassCard from '@/components/ui/GlassCard';
 
-// Force dynamic rendering
-export const dynamic = 'force-dynamic';
+export const metadata: Metadata = {
+    title: 'Projects',
+    description:
+        'Explore selected projects by Sabin K Santhosh — web applications, AI interfaces, and digital solutions built with Next.js, React, and modern web technologies.',
+    alternates: { canonical: '/projects' },
+    openGraph: {
+        title: 'Projects | Sabin K Santhosh',
+        description: 'Selected web development projects and digital solutions.',
+        url: '/projects',
+    },
+};
+
+// Revalidate at most once per minute (ISR) instead of rendering on every request.
+export const revalidate = 60;
 
 async function getProjects() {
     try {

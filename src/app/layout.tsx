@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,18 +34,13 @@ export const metadata: Metadata = {
     title: "Sabin K Santhosh | Digital Architect & Developer",
     description: "Building digital empires with code. View my projects, skills, and professional experience.",
     siteName: "Sabin K Santhosh Portfolio",
-    images: [{
-      url: "/icon.png",
-      width: 1200,
-      height: 630,
-      alt: "Sabin K Santhosh Portfolio",
-    }],
+    // og:image is provided automatically by src/app/opengraph-image.tsx (1200x630)
   },
   twitter: {
     card: "summary_large_image",
     title: "Sabin K Santhosh | Digital Architect",
     description: "Building digital empires with code. View my projects and professional experience.",
-    images: ["/icon.png"],
+    // twitter:image is provided automatically by src/app/twitter-image.tsx (1200x630)
     site: "@sabinksanthosh",
     creator: "@sabinksanthosh",
   },
@@ -66,6 +62,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const fbPixelId = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -115,22 +113,34 @@ export default function RootLayout({
             })
           }}
         />
-        {/* Google Analytics Placeholder */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-XXXXXXXXXX');
-            `,
-          }}
-        />
-        {/* Facebook Pixel Placeholder */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        {children}
+
+        {/* Google Analytics — only loads when NEXT_PUBLIC_GA_ID is configured */}
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}');
+              `}
+            </Script>
+          </>
+        )}
+
+        {/* Facebook Pixel — only loads when NEXT_PUBLIC_FB_PIXEL_ID is configured */}
+        {fbPixelId && (
+          <Script id="fb-pixel" strategy="afterInteractive">
+            {`
               !function(f,b,e,v,n,t,s)
               {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
               n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -139,24 +149,11 @@ export default function RootLayout({
               t.src=v;s=b.getElementsByTagName(e)[0];
               s.parentNode.insertBefore(t,s)}(window, document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '123456789012345');
+              fbq('init', '${fbPixelId}');
               fbq('track', 'PageView');
-            `,
-          }}
-        />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div style={{ display: 'none' }} aria-hidden="true">
-          <a href="https://facebook.com/sabinksanthosh">Facebook</a>
-          <a href="https://twitter.com/sabinksanthosh">Twitter</a>
-          <a href="https://instagram.com/sabinksanthosh">Instagram</a>
-          <a href="https://youtube.com/@sabinksanthosh">YouTube</a>
-          <a href="https://linkedin.com/in/sabin-k-santhosh/">LinkedIn</a>
-          <a href="https://github.com/Empire-SK">GitHub</a>
-        </div>
-        {children}
+            `}
+          </Script>
+        )}
       </body>
     </html>
   );
