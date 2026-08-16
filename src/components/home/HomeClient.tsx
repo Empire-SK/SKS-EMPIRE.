@@ -24,12 +24,14 @@ export default function HomeClient({ profile, projects, services, timeline, skil
 
     // Loading state is handled by the SystemLoader callback
 
-    if (loading) {
-        return <SystemLoader onComplete={() => setLoading(false)} />;
-    }
-
     return (
-        <main className="min-h-screen bg-[#050505] text-white selection:bg-[#D0202F] selection:text-white overflow-x-hidden">
+        <>
+            {loading && <SystemLoader onComplete={() => setLoading(false)} />}
+            
+            <main 
+                className={`min-h-screen bg-[#050505] text-white selection:bg-[#D0202F] selection:text-white overflow-x-hidden ${loading ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100 transition-opacity duration-1000'}`}
+                aria-hidden={loading}
+            >
             {/* Fixed Background Elements */}
             <div className="fixed inset-0 z-0 pointer-events-none">
                 <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#D0202F]/10 blur-[150px] animate-blob"></div>
@@ -55,5 +57,6 @@ export default function HomeClient({ profile, projects, services, timeline, skil
 
             <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
         </main>
+        </>
     );
 }

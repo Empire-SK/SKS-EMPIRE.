@@ -2,8 +2,41 @@ import React from 'react';
 import { prisma } from '@/lib/prisma';
 import HomeClient from '@/components/home/HomeClient';
 
+import { Metadata } from 'next';
+
 // Force dynamic rendering since we are fetching data that might change
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata(): Promise<Metadata> {
+    try {
+        let profile = await prisma.profile.findUnique({
+            where: { id: 'default-profile' }
+        });
+        if (!profile) {
+            profile = await prisma.profile.findFirst();
+        }
+
+        if (profile) {
+            return {
+                title: `${profile.name} | ${profile.role}`,
+                description: profile.bio || profile.about?.substring(0, 160),
+                openGraph: {
+                    title: `${profile.name} | ${profile.role}`,
+                    description: profile.bio || profile.about?.substring(0, 160),
+                    images: profile.imageUrl ? [{ url: profile.imageUrl }] : undefined,
+                },
+                twitter: {
+                    title: `${profile.name} | ${profile.role}`,
+                    description: profile.bio || profile.about?.substring(0, 160),
+                    images: profile.imageUrl ? [profile.imageUrl] : undefined,
+                }
+            };
+        }
+    } catch (e) {
+        console.error("Failed to generate metadata", e);
+    }
+    return {};
+}
 
 async function getData() {
     try {
