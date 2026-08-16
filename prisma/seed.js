@@ -13,7 +13,7 @@ async function main() {
             id: 'default-profile',
             name: 'Sabin K Santhosh',
             role: 'FULL STACK DEVELOPER',
-            bio: "I'm Sabin K Santhosh. A creative developer focused on crafting immersive web experiences that leave a lasting impact.",
+            bio: "I'm Sabin K Santhosh. Engineering the digital frontier with elegant code and scalable architectures.",
             about: "I don't just write code; I engineer solutions. I am passionate about learning and applying new technologies to solve real-world problems.",
             email: 'sabinksanthosh6@gmail.com', // Inferred from previous context
             phone: '',

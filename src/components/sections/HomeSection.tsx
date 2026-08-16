@@ -38,7 +38,7 @@ const HomeSection = ({ setActiveTab, profile, stats, projects, services }: HomeS
                         EMPIRES.
                     </h1>
                     <p className="text-lg text-white/60 mb-8 max-w-lg leading-relaxed border-l-2 border-[#D0202F] pl-6">
-                        {profile?.bio || "I'm Sabin K Santhosh. A creative developer focused on crafting immersive web experiences that leave a lasting impact."}
+                        {profile?.bio || "I'm Sabin K Santhosh. Engineering the digital frontier with elegant code and scalable architectures."}
                     </p>
                     <div className="flex flex-wrap gap-4">
                         <button onClick={() => setActiveTab('projects')} className="group relative px-4 py-2 md:px-8 md:py-4 bg-white text-black font-bold uppercase tracking-wider overflow-hidden rounded-lg md:rounded-xl text-sm md:text-base">

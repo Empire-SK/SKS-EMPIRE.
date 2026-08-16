@@ -1,0 +1,18 @@
+# Sabin K Santhosh - Digital Architect & Full Stack Developer
+
+Sabin K Santhosh is a Full Stack Developer based in Kerala, India. He specializes in engineering the web with elegant, scalable code and building digital empires.
+
+## Profile Details
+- **Role**: Full Stack Developer & Digital Architect
+- **Location**: Kerala, IN
+- **Email**: sabinksanthosh6@gmail.com
+- **LinkedIn**: https://linkedin.com/in/sabin-k-santhosh/
+- **GitHub**: https://github.com/Empire-SK
+
+## Services
+- Web Development
+- UI/UX Design
+- Tech Strategy
+
+## Bio
+I don't just write code; I engineer solutions. I am passionate about learning and applying new technologies to solve real-world problems.
