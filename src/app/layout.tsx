@@ -78,6 +78,7 @@ export default function RootLayout({
                   "name": "Sabin K Santhosh",
                   "url": "https://www.sabinksanthosh.me",
                   "jobTitle": "Full Stack Developer",
+                  "image": "https://www.sabinksanthosh.me/opengraph-image",
                   "sameAs": [
                     "https://github.com/Empire-SK",
                     "https://linkedin.com/in/sabin-k-santhosh/",

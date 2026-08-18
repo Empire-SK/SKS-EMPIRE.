@@ -9,6 +9,7 @@ import { Metadata } from 'next';
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
+    const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://www.sabinksanthosh.me';
     try {
         let profile = await prisma.profile.findUnique({
             where: { id: 'default-profile' }
@@ -18,18 +19,36 @@ export async function generateMetadata(): Promise<Metadata> {
         }
 
         if (profile) {
+            const description =
+                (profile.bio && profile.bio.trim())
+                    ? profile.bio.trim()
+                    : (profile.about?.trim().substring(0, 160)) ||
+                      'Full Stack Developer & Digital Architect based in Kerala. Building elegant, scalable web experiences.';
+
+            // Ensure image URL is absolute so Google can index it properly
+            const rawImage = profile.imageUrl || '';
+            const absoluteImage =
+                rawImage.startsWith('http') ? rawImage : rawImage ? `${BASE_URL}${rawImage.startsWith('/') ? '' : '/'}${rawImage}` : `${BASE_URL}/opengraph-image`;
+
             return {
                 title: `${profile.name} | ${profile.role}`,
-                description: profile.bio || profile.about?.substring(0, 160),
+                description,
                 openGraph: {
                     title: `${profile.name} | ${profile.role}`,
-                    description: profile.bio || profile.about?.substring(0, 160),
-                    images: profile.imageUrl ? [{ url: profile.imageUrl }] : undefined,
+                    description,
+                    images: [
+                        {
+                            url: absoluteImage,
+                            width: 1200,
+                            height: 630,
+                            alt: `${profile.name} — ${profile.role}`,
+                        }
+                    ],
                 },
                 twitter: {
                     title: `${profile.name} | ${profile.role}`,
-                    description: profile.bio || profile.about?.substring(0, 160),
-                    images: profile.imageUrl ? [profile.imageUrl] : undefined,
+                    description,
+                    images: [absoluteImage],
                 }
             };
         }

@@ -26,7 +26,11 @@ export default function SystemLoader({ onComplete }: SystemLoaderProps) {
     }, [onComplete]);
 
     return (
-        <div className="fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center font-mono">
+        <div
+            className="fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center font-mono"
+            aria-hidden="true"
+            data-nosnippet
+        >
             <div className="w-64 md:w-96 space-y-4">
                 <div className="flex justify-between text-xs text-[#D0202F] tracking-widest uppercase">
                     <span>System Check</span>
