@@ -28,6 +28,7 @@ const MONTHS = [
 export default function TimelinePage() {
     const [items, setItems] = useState<TimelineItem[]>([]);
     const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [currentItem, setCurrentItem] = useState<Partial<TimelineItem>>({});
 
@@ -137,6 +138,7 @@ export default function TimelinePage() {
 
     const handleSave = async (e: React.FormEvent) => {
         e.preventDefault();
+        setSaving(true);
         try {
             const finalYear = computeYearString();
             const startStr = dateMode === 'range' ? `${startMonth} ${startYear}` : finalYear;
@@ -158,13 +160,20 @@ export default function TimelinePage() {
                 body: JSON.stringify(payload),
             });
 
-            if (res.ok) {
-                setIsEditing(false);
-                setCurrentItem({});
-                fetchTimeline();
+            const data = await res.json();
+            if (!res.ok) {
+                alert(data.error || 'Failed to save entry. Please check your admin session.');
+                return;
             }
-        } catch (error) {
+
+            setIsEditing(false);
+            setCurrentItem({});
+            await fetchTimeline();
+        } catch (error: any) {
             console.error('Failed to save', error);
+            alert('Error saving entry: ' + (error?.message || 'Unknown network error'));
+        } finally {
+            setSaving(false);
         }
     };
 
@@ -265,25 +274,26 @@ export default function TimelinePage() {
             {isEditing && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
                     <div className="bg-[#111] border border-white/10 rounded-2xl w-full max-w-xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
-                        {/* Modal Header */}
-                        <div className="p-5 border-b border-white/10 flex justify-between items-center flex-shrink-0">
-                            <div>
-                                <h3 className="text-lg font-bold text-white">
-                                    {currentItem.id ? 'Edit Entry' : 'New Entry'}
-                                </h3>
-                                <p className="text-xs text-white/40 mt-0.5">Configure role, organization, and dates.</p>
+                        <form onSubmit={handleSave} className="flex flex-col flex-1 overflow-hidden">
+                            {/* Modal Header */}
+                            <div className="p-5 border-b border-white/10 flex justify-between items-center flex-shrink-0">
+                                <div>
+                                    <h3 className="text-lg font-bold text-white">
+                                        {currentItem.id ? 'Edit Entry' : 'New Entry'}
+                                    </h3>
+                                    <p className="text-xs text-white/40 mt-0.5">Configure role, organization, and dates.</p>
+                                </div>
+                                <button 
+                                    type="button"
+                                    onClick={() => setIsEditing(false)} 
+                                    className="text-white/40 hover:text-white transition-colors"
+                                >
+                                    <X size={20} />
+                                </button>
                             </div>
-                            <button 
-                                onClick={() => setIsEditing(false)} 
-                                className="text-white/40 hover:text-white transition-colors"
-                            >
-                                <X size={20} />
-                            </button>
-                        </div>
 
-                        {/* Modal Body */}
-                        <div className="p-5 overflow-y-auto custom-scrollbar space-y-4">
-                            <form id="timeline-form" onSubmit={handleSave} className="space-y-4">
+                            {/* Modal Body */}
+                            <div className="p-5 overflow-y-auto custom-scrollbar space-y-4 flex-1">
                                 
                                 {/* Period Toggle */}
                                 <div className="flex items-center justify-between gap-2 p-1 bg-black/40 rounded-lg border border-white/10">
@@ -474,26 +484,26 @@ export default function TimelinePage() {
                                         className="w-16 text-center bg-black/40 border border-white/10 rounded-md py-1 text-white font-bold text-xs focus:border-[#D0202F] focus:outline-none"
                                     />
                                 </div>
-                            </form>
-                        </div>
+                            </div>
 
-                        {/* Modal Footer */}
-                        <div className="p-4 border-t border-white/10 flex justify-end gap-2 flex-shrink-0">
-                            <button
-                                type="button"
-                                onClick={() => setIsEditing(false)}
-                                className="px-4 py-2 rounded-lg text-sm font-semibold text-white/50 hover:text-white transition-colors"
-                            >
-                                Cancel
-                            </button>
-                            <AdminButton
-                                type="submit"
-                                form="timeline-form"
-                                icon={Save}
-                            >
-                                Save Entry
-                            </AdminButton>
-                        </div>
+                            {/* Modal Footer */}
+                            <div className="p-4 border-t border-white/10 flex justify-end gap-2 flex-shrink-0">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsEditing(false)}
+                                    className="px-4 py-2 rounded-lg text-sm font-semibold text-white/50 hover:text-white transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                                <AdminButton
+                                    type="submit"
+                                    isLoading={saving}
+                                    icon={Save}
+                                >
+                                    {saving ? 'Saving...' : 'Save Entry'}
+                                </AdminButton>
+                            </div>
+                        </form>
                     </div>
                 </div>
             )}
