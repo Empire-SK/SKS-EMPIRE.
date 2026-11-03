@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://www.sabinksanthosh.me'),
   title: {
-    default: "Sabin K Santhosh | Digital Architect & Developer",
+    default: "Sabin K Santhosh",
     template: "%s | Sabin K Santhosh",
   },
   description: "Portfolio of Sabin K Santhosh, a Full Stack Developer and Digital Architect based in Kerala. Engineering the web with elegant, scalable code.",
@@ -31,14 +31,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    title: "Sabin K Santhosh | Digital Architect & Developer",
+    title: "Sabin K Santhosh",
     description: "Building digital empires with code. View my projects, skills, and professional experience.",
     siteName: "Sabin K Santhosh Portfolio",
     // og:image is provided automatically by src/app/opengraph-image.tsx (1200x630)
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sabin K Santhosh | Digital Architect",
+    title: "Sabin K Santhosh",
     description: "Building digital empires with code. View my projects and professional experience.",
     // twitter:image is provided automatically by src/app/twitter-image.tsx (1200x630)
     site: "@sabinksanthosh",

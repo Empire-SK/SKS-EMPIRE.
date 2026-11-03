@@ -30,23 +30,26 @@ export async function generateMetadata(): Promise<Metadata> {
             const absoluteImage =
                 rawImage.startsWith('http') ? rawImage : rawImage ? `${BASE_URL}${rawImage.startsWith('/') ? '' : '/'}${rawImage}` : `${BASE_URL}/opengraph-image`;
 
+            const name = profile.name || 'Sabin K Santhosh';
             return {
-                title: `${profile.name} | ${profile.role}`,
+                title: {
+                    absolute: name,
+                },
                 description,
                 openGraph: {
-                    title: `${profile.name} | ${profile.role}`,
+                    title: name,
                     description,
                     images: [
                         {
                             url: absoluteImage,
                             width: 1200,
                             height: 630,
-                            alt: `${profile.name} — ${profile.role}`,
+                            alt: name,
                         }
                     ],
                 },
                 twitter: {
-                    title: `${profile.name} | ${profile.role}`,
+                    title: name,
                     description,
                     images: [absoluteImage],
                 }
@@ -55,7 +58,11 @@ export async function generateMetadata(): Promise<Metadata> {
     } catch (e) {
         console.error("Failed to generate metadata", e);
     }
-    return {};
+    return {
+        title: {
+            absolute: 'Sabin K Santhosh',
+        },
+    };
 }
 
 async function getData() {
