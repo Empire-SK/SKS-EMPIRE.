@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
     Plus, Edit, Trash2, Save, X, Calendar, Sparkles, 
-    CheckCircle2, Clock, Briefcase, Building2, Sliders 
+    CheckCircle2, Clock, Briefcase, Building2, Sliders, ChevronDown 
 } from 'lucide-react';
 import AdminLoader from '@/components/admin/AdminLoader';
 
@@ -364,15 +364,20 @@ export default function TimelinePage() {
                                                 Start Date
                                             </label>
                                             <div className="grid grid-cols-2 gap-3">
-                                                <select
-                                                    value={startMonth}
-                                                    onChange={(e) => setStartMonth(e.target.value)}
-                                                    className="w-full bg-[#141418] border border-white/[0.1] rounded-xl p-3 text-white text-sm focus:border-[#D0202F] focus:ring-1 focus:ring-[#D0202F]/50 focus:outline-none transition-all"
-                                                >
-                                                    {MONTHS.map(m => (
-                                                        <option key={m} value={m} className="bg-[#141418] text-white">{m}</option>
-                                                    ))}
-                                                </select>
+                                                <div className="relative">
+                                                    <select
+                                                        value={startMonth}
+                                                        onChange={(e) => setStartMonth(e.target.value)}
+                                                        className="w-full appearance-none bg-[#141418] border border-white/[0.1] rounded-xl pl-3.5 pr-10 py-3 text-white text-sm focus:border-[#D0202F] focus:ring-1 focus:ring-[#D0202F]/50 focus:outline-none transition-all cursor-pointer hover:border-white/20"
+                                                    >
+                                                        {MONTHS.map(m => (
+                                                            <option key={m} value={m} className="bg-[#141418] text-white">{m}</option>
+                                                        ))}
+                                                    </select>
+                                                    <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-white/40 flex items-center justify-center">
+                                                        <ChevronDown size={16} />
+                                                    </div>
+                                                </div>
                                                 <input
                                                     type="number"
                                                     value={startYear}
@@ -431,15 +436,20 @@ export default function TimelinePage() {
                                                     End Date
                                                 </label>
                                                 <div className="grid grid-cols-2 gap-3">
-                                                    <select
-                                                        value={endMonth}
-                                                        onChange={(e) => setEndMonth(e.target.value)}
-                                                        className="w-full bg-[#141418] border border-white/[0.1] rounded-xl p-3 text-white text-sm focus:border-[#D0202F] focus:ring-1 focus:ring-[#D0202F]/50 focus:outline-none transition-all"
-                                                    >
-                                                        {MONTHS.map(m => (
-                                                            <option key={m} value={m} className="bg-[#141418] text-white">{m}</option>
-                                                        ))}
-                                                    </select>
+                                                    <div className="relative">
+                                                        <select
+                                                            value={endMonth}
+                                                            onChange={(e) => setEndMonth(e.target.value)}
+                                                            className="w-full appearance-none bg-[#141418] border border-white/[0.1] rounded-xl pl-3.5 pr-10 py-3 text-white text-sm focus:border-[#D0202F] focus:ring-1 focus:ring-[#D0202F]/50 focus:outline-none transition-all cursor-pointer hover:border-white/20"
+                                                        >
+                                                            {MONTHS.map(m => (
+                                                                <option key={m} value={m} className="bg-[#141418] text-white">{m}</option>
+                                                            ))}
+                                                        </select>
+                                                        <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-white/40 flex items-center justify-center">
+                                                            <ChevronDown size={16} />
+                                                        </div>
+                                                    </div>
                                                     <input
                                                         type="number"
                                                         value={endYear}
