@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Code, Layout, Smartphone, Globe, Cpu, Layers, Database, type LucideIcon } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { Footer } from "@/components/shared/Footer";
 
 export const metadata: Metadata = {
     title: "Services",
@@ -70,6 +71,7 @@ export default async function ServicesPage() {
                     })}
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

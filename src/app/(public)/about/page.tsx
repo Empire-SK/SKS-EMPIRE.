@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
+import { Footer } from "@/components/shared/Footer";
 
 export const metadata: Metadata = {
     title: "About",
@@ -130,6 +131,7 @@ export default async function AboutPage() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

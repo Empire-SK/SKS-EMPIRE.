@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, MapPin, Phone } from "lucide-react";
 import ContactForm from "@/components/shared/ContactForm";
+import { Footer } from "@/components/shared/Footer";
 
 export const metadata: Metadata = {
     title: "Contact",
@@ -66,6 +67,7 @@ export default function ContactPage() {
                     </Card>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

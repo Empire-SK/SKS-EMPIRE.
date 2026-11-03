@@ -8,6 +8,7 @@ import ProjectsSection from '@/components/sections/ProjectsSection';
 import ServicesSection from '@/components/sections/ServicesSection';
 import ContactSection from '@/components/sections/ContactSection';
 import SystemLoader from '@/components/ui/SystemLoader';
+import { Footer } from '@/components/shared/Footer';
 
 interface HomeClientProps {
     profile: any;
@@ -22,34 +23,36 @@ export default function HomeClient({ profile, projects, services, timeline, skil
     const [activeTab, setActiveTab] = useState('home');
     const [loading, setLoading] = useState(true);
 
-    // Loading state is handled by the SystemLoader callback
-
     return (
         <>
             {loading && <SystemLoader onComplete={() => setLoading(false)} />}
             
-            <main 
-                className={`min-h-screen bg-[#050505] text-white selection:bg-[#D0202F] selection:text-white overflow-x-hidden ${loading ? 'opacity-0 h-0 max-h-0 overflow-hidden pointer-events-none' : 'opacity-100 transition-opacity duration-1000'}`}
-                aria-hidden={loading}
-            >
-            {/* Fixed Background Elements */}
-            <div className="fixed inset-0 z-0 pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#D0202F]/10 blur-[150px] animate-blob"></div>
-                <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[150px] animate-blob animation-delay-2000"></div>
-                <div className="absolute top-[40%] left-[40%] w-[30%] h-[30%] rounded-full bg-purple-900/10 blur-[150px] animate-blob animation-delay-4000"></div>
-                <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
-            </div>
+            {!loading && (
+                <>
+                    <main 
+                        className="min-h-screen bg-[#050505] text-white selection:bg-[#D0202F] selection:text-white overflow-x-hidden transition-opacity duration-700 opacity-100"
+                    >
+                        {/* Fixed Background Elements */}
+                        <div className="fixed inset-0 z-0 pointer-events-none">
+                            <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#D0202F]/10 blur-[150px] animate-blob"></div>
+                            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[150px] animate-blob animation-delay-2000"></div>
+                            <div className="absolute top-[40%] left-[40%] w-[30%] h-[30%] rounded-full bg-purple-900/10 blur-[150px] animate-blob animation-delay-4000"></div>
+                            <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
+                        </div>
 
-            <div className="relative z-10 container mx-auto px-6 pt-12 pb-4 md:pt-20 md:pb-4">
-                {activeTab === 'home' && <HomeSection setActiveTab={setActiveTab} profile={profile} stats={stats} projects={projects} services={services} />}
-                {activeTab === 'about' && <AboutSection profile={profile} timeline={timeline} skills={skills} />}
-                {activeTab === 'projects' && <ProjectsSection projects={projects} />}
-                {activeTab === 'services' && <ServicesSection services={services} />}
-                {activeTab === 'contact' && <ContactSection profile={profile} />}
-            </div>
+                        <div className="relative z-10 container mx-auto px-6 pt-12 pb-4 md:pt-20 md:pb-4">
+                            {activeTab === 'home' && <HomeSection setActiveTab={setActiveTab} profile={profile} stats={stats} projects={projects} services={services} />}
+                            {activeTab === 'about' && <AboutSection profile={profile} timeline={timeline} skills={skills} />}
+                            {activeTab === 'projects' && <ProjectsSection projects={projects} />}
+                            {activeTab === 'services' && <ServicesSection services={services} />}
+                            {activeTab === 'contact' && <ContactSection profile={profile} />}
+                        </div>
 
-            <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
-        </main>
+                        <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
+                    </main>
+                    <Footer />
+                </>
+            )}
         </>
     );
 }

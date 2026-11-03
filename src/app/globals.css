@@ -232,6 +232,13 @@
 }
 
 /* Fullscreen Loader State: Lock scrolling and completely hide footer */
+html:has(.system-loader-active),
+body:has(.system-loader-active) {
+    overflow: hidden !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+}
+
 body.is-loading {
     overflow: hidden !important;
     height: 100vh !important;

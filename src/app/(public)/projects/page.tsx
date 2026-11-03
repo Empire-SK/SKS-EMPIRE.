@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import ProjectCard from '@/components/ui/ProjectCard';
 import { Github } from 'lucide-react';
 import GlassCard from '@/components/ui/GlassCard';
+import { Footer } from '@/components/shared/Footer';
 
 export const metadata: Metadata = {
     title: 'Projects',
@@ -86,6 +87,7 @@ export default async function ProjectsPage() {
                     </a>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

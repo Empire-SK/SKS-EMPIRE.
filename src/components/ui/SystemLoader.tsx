@@ -45,7 +45,7 @@ export default function SystemLoader({ onComplete }: SystemLoaderProps) {
 
     const loaderContent = (
         <div
-            className="fixed inset-0 w-screen h-screen bg-black z-[999999] flex flex-col items-center justify-center font-mono select-none overflow-hidden"
+            className="system-loader-active fixed inset-0 bg-black z-[999999] flex flex-col items-center justify-center font-mono select-none overflow-hidden"
             aria-hidden="true"
             data-nosnippet
         >
