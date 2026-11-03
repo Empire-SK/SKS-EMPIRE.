@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 interface SystemLoaderProps {
     onComplete?: () => void;
@@ -9,8 +10,20 @@ interface SystemLoaderProps {
 export default function SystemLoader({ onComplete }: SystemLoaderProps) {
     const [progress, setProgress] = useState(0);
     const [text, setText] = useState('SKSEMPIRE. INITIALIZING..');
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
+        setMounted(true);
+
+        // Lock scrolling and hide footer completely while loading
+        document.body.classList.add('is-loading');
+        const originalBodyOverflow = document.body.style.overflow;
+        const originalHtmlOverflow = document.documentElement.style.overflow;
+
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+        window.scrollTo(0, 0);
+
         const interval = setInterval(() => {
             setProgress(prev => {
                 if (prev >= 100) {
@@ -22,12 +35,17 @@ export default function SystemLoader({ onComplete }: SystemLoaderProps) {
             });
         }, 50);
 
-        return () => clearInterval(interval);
+        return () => {
+            clearInterval(interval);
+            document.body.classList.remove('is-loading');
+            document.body.style.overflow = originalBodyOverflow;
+            document.documentElement.style.overflow = originalHtmlOverflow;
+        };
     }, [onComplete]);
 
-    return (
+    const loaderContent = (
         <div
-            className="fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center font-mono"
+            className="fixed inset-0 w-screen h-screen bg-black z-[999999] flex flex-col items-center justify-center font-mono select-none overflow-hidden"
             aria-hidden="true"
             data-nosnippet
         >
@@ -55,4 +73,10 @@ export default function SystemLoader({ onComplete }: SystemLoaderProps) {
             </div>
         </div>
     );
+
+    if (!mounted || typeof document === 'undefined') {
+        return loaderContent;
+    }
+
+    return createPortal(loaderContent, document.body);
 }

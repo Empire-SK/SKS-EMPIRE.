@@ -230,3 +230,17 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
 }
+
+/* Fullscreen Loader State: Lock scrolling and completely hide footer */
+body.is-loading {
+    overflow: hidden !important;
+    height: 100vh !important;
+}
+
+body.is-loading footer {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+

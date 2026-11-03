@@ -29,7 +29,7 @@ export default function HomeClient({ profile, projects, services, timeline, skil
             {loading && <SystemLoader onComplete={() => setLoading(false)} />}
             
             <main 
-                className={`min-h-screen bg-[#050505] text-white selection:bg-[#D0202F] selection:text-white overflow-x-hidden ${loading ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100 transition-opacity duration-1000'}`}
+                className={`min-h-screen bg-[#050505] text-white selection:bg-[#D0202F] selection:text-white overflow-x-hidden ${loading ? 'opacity-0 h-0 max-h-0 overflow-hidden pointer-events-none' : 'opacity-100 transition-opacity duration-1000'}`}
                 aria-hidden={loading}
             >
             {/* Fixed Background Elements */}
