@@ -67,6 +67,9 @@ model TimelineItem {
   title       String
   role        String?
   description String   @db.Text
+  isCurrent   Boolean  @default(false)
+  startDate   String?
+  endDate     String?
   order       Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

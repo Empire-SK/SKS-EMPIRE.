@@ -69,7 +69,13 @@ async function getData() {
         }
         const projects = await prisma.project.findMany({ orderBy: { order: 'asc' } });
         const services = await prisma.service.findMany({ orderBy: { order: 'asc' } });
-        const timeline = await prisma.timelineItem.findMany({ orderBy: { year: 'desc' } });
+        const timeline = await prisma.timelineItem.findMany({
+            orderBy: [
+                { isCurrent: 'desc' },
+                { order: 'asc' },
+                { createdAt: 'desc' },
+            ],
+        });
         const skills = await prisma.skill.findMany({ orderBy: { order: 'asc' } });
 
         const projectCount = await prisma.project.count();

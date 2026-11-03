@@ -10,7 +10,12 @@ interface AboutSectionProps {
     skills: any[];
 }
 
-const AboutSection = ({ profile, timeline, skills }: AboutSectionProps) => (
+const AboutSection = ({ profile, timeline, skills }: AboutSectionProps) => {
+    // Identify active/current roles or fallback to top items
+    const activeRoles = timeline?.filter(item => Boolean(item.isCurrent || item.year?.toLowerCase().includes('present'))) || [];
+    const featuredRoles = activeRoles.length > 0 ? activeRoles : (timeline?.slice(0, 2) || []);
+
+    return (
     <div className="animate-fade-in-up pb-32 relative max-w-7xl mx-auto px-6">
         {/* Background Typography */}
         <div className="absolute top-[-2%] right-[-5%] font-black text-[6rem] sm:text-[9rem] md:text-[12rem] lg:text-[18rem] text-white/5 -z-10 select-none overflow-hidden leading-none pointer-events-none text-right">
@@ -47,23 +52,38 @@ const AboutSection = ({ profile, timeline, skills }: AboutSectionProps) => (
                     </div>
                 </GlassCard>
 
-                {/* Experience Grid - Now Dynamic */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {timeline && timeline.length > 0 ? (
-                        timeline.slice(0, 2).map((item, index) => (
-                            <GlassCard key={item.id} className={`p-6 border-l-4 ${index % 2 === 0 ? 'border-l-[#D0202F]' : 'border-l-white/20'}`}>
-                                <h4 className="text-white font-bold text-lg">{item.role || item.title}</h4>
-                                <p className={`text-xs font-bold uppercase tracking-widest mb-2 ${index % 2 === 0 ? 'text-[#D0202F]' : 'text-white/40'}`}>
-                                    {item.role ? item.title : item.year}
-                                </p>
-                                <p className="text-white/50 text-sm line-clamp-3">{item.description}</p>
-                            </GlassCard>
-                        ))
+                {/* Experience Grid - Highlights Current Roles */}
+                <div className={`grid grid-cols-1 ${featuredRoles.length > 1 ? 'md:grid-cols-2' : ''} gap-6`}>
+                    {featuredRoles.length > 0 ? (
+                        featuredRoles.map((item, index) => {
+                            const isCurrent = Boolean(item.isCurrent || item.year?.toLowerCase().includes('present'));
+                            return (
+                                <GlassCard key={item.id} className={`p-6 border-l-4 ${isCurrent ? 'border-l-[#D0202F]' : (index % 2 === 0 ? 'border-l-[#D0202F]' : 'border-l-white/20')}`}>
+                                    <div className="flex items-center justify-between gap-2 mb-2">
+                                        <span className="text-xs font-bold uppercase tracking-widest text-[#D0202F]">
+                                            {item.role ? item.title : item.year}
+                                        </span>
+                                        {isCurrent && (
+                                            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                                Present
+                                            </span>
+                                        )}
+                                    </div>
+                                    <h4 className="text-white font-bold text-lg mb-1">{item.role || item.title}</h4>
+                                    {item.role && (
+                                        <p className="text-xs font-semibold text-white/50 mb-2">
+                                            {item.year}
+                                        </p>
+                                    )}
+                                    <p className="text-white/60 text-sm leading-relaxed line-clamp-3">{item.description}</p>
+                                </GlassCard>
+                            );
+                        })
                     ) : (
                         <div className="col-span-full py-8 text-center border border-white/5 rounded-xl bg-white/5">
                             <p className="text-white/40 text-sm">No timeline entries yet.</p>
                         </div>
-
                     )}
                 </div>
             </div>
@@ -97,16 +117,32 @@ const AboutSection = ({ profile, timeline, skills }: AboutSectionProps) => (
                     <span className="w-8 h-[2px] bg-[#D0202F]"></span>
                     My Journey
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    {timeline && timeline.length > 0 ? timeline.map((item) => (
-                        <div key={item.id} className="relative pl-8 pb-8 border-l border-white/10 last:pb-0">
-                            <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-[#D0202F]"></div>
-                            <span className="text-xs font-bold text-[#D0202F] mb-1 block">{item.year}</span>
-                            <h4 className="text-white font-bold mb-1">{item.title}</h4>
-                            {item.role && <h5 className="text-white/80 font-medium text-sm mb-2">{item.role}</h5>}
-                            <p className="text-white/50 text-sm">{item.description}</p>
-                        </div>
-                    )) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                    {timeline && timeline.length > 0 ? timeline.map((item) => {
+                        const isCurrent = Boolean(item.isCurrent || item.year?.toLowerCase().includes('present'));
+                        return (
+                            <div key={item.id} className="relative pl-8 pb-8 border-l border-white/10 last:pb-0">
+                                <div className={`absolute left-[-6px] top-0.5 rounded-full transition-all ${
+                                    isCurrent 
+                                        ? 'w-3 h-3 bg-[#D0202F] ring-4 ring-[#D0202F]/30 animate-pulse' 
+                                        : 'w-2.5 h-2.5 bg-white/40'
+                                }`}></div>
+                                <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                                    <span className={`text-xs font-bold block ${isCurrent ? 'text-[#D0202F]' : 'text-white/60'}`}>
+                                        {item.year}
+                                    </span>
+                                    {isCurrent && (
+                                        <span className="inline-flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                            Current
+                                        </span>
+                                    )}
+                                </div>
+                                <h4 className="text-white font-bold mb-1 leading-snug">{item.title}</h4>
+                                {item.role && <h5 className="text-white/80 font-medium text-sm mb-2">{item.role}</h5>}
+                                <p className="text-white/50 text-sm leading-relaxed">{item.description}</p>
+                            </div>
+                        );
+                    }) : (
                         <div className="text-white/40">No timeline entries yet.</div>
                     )}
                 </div>
@@ -161,6 +197,7 @@ const AboutSection = ({ profile, timeline, skills }: AboutSectionProps) => (
 
         </div>
     </div>
-);
+    );
+};
 
 export default AboutSection;

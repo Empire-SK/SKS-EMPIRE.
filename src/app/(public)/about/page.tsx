@@ -23,7 +23,13 @@ async function getAboutData(): Promise<{ profile: any; timeline: any[]; skills: 
         let profile = await prisma.profile.findUnique({ where: { id: "default-profile" } });
         if (!profile) profile = await prisma.profile.findFirst();
 
-        const timeline = await prisma.timelineItem.findMany({ orderBy: { order: "asc" } });
+        const timeline = await prisma.timelineItem.findMany({
+            orderBy: [
+                { isCurrent: 'desc' },
+                { order: 'asc' },
+                { createdAt: 'desc' },
+            ],
+        });
         const skills = await prisma.skill.findMany({ orderBy: { order: "asc" } });
 
         return {

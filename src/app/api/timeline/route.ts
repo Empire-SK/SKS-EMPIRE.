@@ -11,7 +11,11 @@ async function isAuthenticated() {
 export async function GET() {
   try {
     const timeline = await prisma.timelineItem.findMany({
-      orderBy: { year: 'desc' }, // Default sort by year descending
+      orderBy: [
+        { isCurrent: 'desc' },
+        { order: 'asc' },
+        { createdAt: 'desc' },
+      ],
     });
     return NextResponse.json(timeline);
   } catch (error) {
@@ -32,7 +36,10 @@ export async function POST(request: Request) {
         title: body.title,
         role: body.role,
         description: body.description,
-        order: body.order || 0,
+        isCurrent: Boolean(body.isCurrent),
+        startDate: body.startDate || null,
+        endDate: body.endDate || null,
+        order: typeof body.order === 'number' ? body.order : (parseInt(body.order, 10) || 0),
       },
     });
     return NextResponse.json(item);
@@ -48,7 +55,13 @@ export async function PUT(request: Request) {
 
   try {
     const body = await request.json();
-    const { id, ...data } = body;
+    const { id, createdAt, updatedAt, ...data } = body;
+    if (data.order !== undefined) {
+      data.order = typeof data.order === 'number' ? data.order : (parseInt(data.order, 10) || 0);
+    }
+    if (data.isCurrent !== undefined) {
+      data.isCurrent = Boolean(data.isCurrent);
+    }
     const item = await prisma.timelineItem.update({
       where: { id },
       data,
